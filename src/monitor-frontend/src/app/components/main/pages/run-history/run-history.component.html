@@ -1,0 +1,54 @@
+<app-page-title title="main.history.title" icon="history"></app-page-title>
+
+<div
+    class="mb-n3 d-flex flex-column"
+    *ngIf="statistics.isConnected && statistics.history?.length; else noData"
+    [style.color]="'white'"
+>
+    <div *ngFor="let pr of statistics.history" class="my-3">
+        <app-path-method-badge
+            [method]="pr.method"
+            [path]="pr.path"
+            [additionalInformation]="pr.runId + ' - ' + pr.timestamp"
+        ></app-path-method-badge>
+
+        <div class="d-flex flex-row my-2 my-md-3" *ngIf="pr.ignoredCause">
+            <mat-icon color="warn"> warning </mat-icon>
+            <mat-divider
+                [vertical]="true"
+                class="position-relative mx-2 mx-md-3"
+            ></mat-divider>
+            <strong class="mr-1">
+                {{ 'main.history.ignored' | translate }}:
+            </strong>
+            {{ pr.ignoredCause }}
+        </div>
+
+        <ng-container *ngIf="pr.runConfig">
+            <h2 class="mb-0 mt-md-3 mt-2">
+                {{ 'main.history.runConfig' | translate }}
+            </h2>
+            <pre class="my-2 my-md-3">{{ pr.runConfig | json }}</pre>
+        </ng-container>
+
+        <div class="m-n1 m-md-n2 row">
+            <div
+                class="col-12 col-md-6 col-lg-4 col-xl-3 p-1 p-md-2"
+                *ngFor="let result of pr | runResults"
+            >
+                <app-config-card
+                    [config]="result.config"
+                    [responseData]="result.response"
+                >
+                    <mat-divider
+                        class="position-relative my-2 my-md-3"
+                    ></mat-divider>
+
+                    <pre class="flex-grow-1">{{ result.quality | json }}</pre>
+                </app-config-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noData> <app-no-data></app-no-data></ng-template>

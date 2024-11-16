@@ -1,0 +1,15 @@
+<div class="app-container h-100 d-flex flex-column">
+    <header class="position-fixed w-100">
+        <app-header></app-header>
+    </header>
+
+    <main class="px-3 pb-3 px-md-4 pb-md-4 flex-grow-1 w-100 d-flex">
+        <div
+            id="main-content"
+            class="w-100 mx-auto"
+            [@routeAnimations]="outlet.activatedRouteData['animation']"
+        >
+            <router-outlet #outlet="outlet"></router-outlet>
+        </div>
+    </main>
+</div>

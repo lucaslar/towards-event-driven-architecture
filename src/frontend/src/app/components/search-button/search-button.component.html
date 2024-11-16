@@ -1,0 +1,15 @@
+<button
+    mat-flat-button
+    color="accent"
+    id="btn"
+    class="position-fixed mat-elevation-z3"
+    (click)="openSearchDialog()"
+    [disabled]="search.currentSearch$ | async"
+>
+    <mat-icon> search </mat-icon>
+    <span class="search-text">
+        <span class="pl-2">
+            {{ 'action.search' | translate }}
+        </span>
+    </span>
+</button>

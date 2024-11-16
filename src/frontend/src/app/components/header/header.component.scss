@@ -1,0 +1,40 @@
+mat-toolbar {
+    background: rgba(250, 250, 250, 0.95);
+    transition: 0.3s box-shadow;
+
+    mat-toolbar-row {
+        height: unset;
+
+        &.top-row {
+            transition: 0.3s padding;
+
+            padding: 16px 16px 12px;
+
+            @media (min-width: 768px) {
+                padding: 24px 24px 20px;
+            }
+
+            .title,
+            .subtitle {
+                width: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .subtitle {
+                color: #808080;
+                line-height: 16px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    @supports (
+        (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))
+    ) {
+        background: rgba(250, 250, 250, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}

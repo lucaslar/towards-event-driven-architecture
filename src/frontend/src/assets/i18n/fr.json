@@ -1,0 +1,100 @@
+{
+    "app": {
+        "title": "Outil de Recherche de Lauréat(e)s du Prix Nobel",
+        "subtitle": "Towards EDA - HTW Berlin, 2022"
+    },
+    "general": {
+        "close": "Fermer",
+        "confirm": "Confirmer",
+        "delete": "Supprimer",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "reset": "Réinitialiser",
+        "gender": {
+            "female": "Female",
+            "male": "Masculin",
+            "divers": "X",
+            "org": "Organisation"
+        }
+    },
+    "action": {
+        "info": "Information",
+        "language": "Sélection de langue",
+        "search": "Recherche",
+        "deleteAll": "Supprimer tous les résultats"
+    },
+    "searchForm": {
+        "title": {
+            "personal": "Données personnelles",
+            "birthDate": "Date de naissance",
+            "birthLocation": "Lieu de naissance",
+            "deathDate": "Date de décès",
+            "deathLocation": "Lieu de décès"
+        },
+        "field": {
+            "firstName": "Prénom",
+            "lastName": "Nom de familie (ou organisation)",
+            "gender": "Genre",
+            "date": {
+                "yearOnly": "An seulement",
+                "date": "Date",
+                "year": "An",
+                "operator": {
+                    "label": "Opérateur",
+                    "eq": "Égal",
+                    "lt": "Inférieur à",
+                    "gt": "Supérieur à"
+                }
+            }
+        }
+    },
+    "searchResult": {
+        "delete": "Supprimer résultats",
+        "queryDetails": {
+            "title": "Détails de la requête",
+            "hide": "Masquer détails de la requête",
+            "show": "Montrer détails de la requête"
+        },
+        "laureateService": {
+            "Chemistry": "Chimie",
+            "Literature": "Littérature",
+            "Peace": "Paix",
+            "Physics": "Physique",
+            "Physiology or Medicine": "Physiologie ou Médecine",
+            "Economic Sciences": "Sciences Économiques"
+        },
+        "nResults": "{{ n }} résultats",
+        "error": "Une erreur est survenue."
+    },
+    "dialog": {
+        "error": "Une erreur est survenue...",
+        "searchResult": {
+            "born": "Né(e)",
+            "passed": "Passé(e)",
+            "bornAndPassed": "Né(e) et passé(e)"
+        },
+        "deleteAll": "Es-tu sûr(e) de vouloir supprimer tous les résultats de recherche ? Cela ne peut pas être annulé.",
+        "deleteOne": "Es-tu sûr(e) de vouloir supprimer les résultats de la recherche \"{{ uuid }}\" ? Cela ne peut pas être annulé.",
+        "laureate": {
+            "adjusted": "ajusté",
+            "learnMore": "En savoir plus sur {{ name }}:",
+            "laureateOnUrl": "{{ name }} en {{ platform }}",
+            "prizesErr": "Données sur les prix n'ont pas pu être chargées. Raison:"
+        },
+        "info": "Ce frontend peut être utilisé pour requêtes à l'Outil de Recherche de Lauréat(e)s du Prix Nobel, qui a été implémenté dans le cadre une thèse de master. La requête est envoyée au Parallel Run Service, qui sert de proxy à une architecture synchrone de microservices et envoie en même temps la même requête à d'autres implémentations de l'outil, afin de pouvoir évaluer la performance de différentes architectures en comparaison."
+    },
+    "snackbar": {
+        "geoHash": {
+            "locked": {
+                "child": "\"{{ hash }}\" ne peut pas être désélectionné parce qu'un o plusierus child geohashes, par ex. \"{{ lockReason }}\", sont sélectionnés.",
+                "parent": "\"{{ hash }}\" ne peut pas être désélectionné parce qu'un parent geohash (\"{{ lockReason }}\") est sélectionné."
+            },
+            "invalid": "Geohash invalide: {{ hash }}"
+        }
+    },
+    "noResults": {
+        "title": "Aucun résultat",
+        "message1": "Il n'y a pas de résultats stockés des recherches précédentes.",
+        "message2": "Lancez une recherche en utilisant le bouton en bas à droite!"
+    }
+}

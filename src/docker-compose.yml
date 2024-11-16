@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  statistics-db:
+    container_name: teda_shared_statistics-db
+    image: mongo:5.0.8
+    restart: always
+    volumes:
+      - ./stats-mongodata:/data/db
+    networks:
+      - towardseda_shared_default
+
+  parallel-run-service:
+    container_name: teda_shared_parallel-run
+    build:
+      context: helpers/parallel-run-service
+    volumes:
+      - ./helpers/parallel-run-service/src/assets/config.json:/usr/src/app/build/assets/config.json
+    networks:
+      - towardseda_shared_to_samples
+      - towardseda_shared_default
+    environment:
+      - MONGO_HOST=teda_shared_statistics-db
+    restart: always
+    depends_on:
+      - statistics-db
+
+  parallel-run-monitor-fe:
+    container_name: teda_shared_monitor-frontend
+    build:
+      context: monitor-frontend
+    networks:
+      - towardseda_shared_default
+    ports:
+      - '8322:8080'
+    depends_on:
+      - parallel-run-service
+
+  frontend:
+    container_name: teda_shared_frontend
+    build:
+      context: frontend
+    ports:
+      - '8321:8080'
+    networks:
+      - towardseda_shared_default
+    depends_on:
+      - parallel-run-service
+
+networks:
+  towardseda_shared_default:
+  towardseda_shared_to_samples:
+    external: true

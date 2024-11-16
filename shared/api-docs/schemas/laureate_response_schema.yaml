@@ -1,0 +1,42 @@
+type: array
+items:
+  type: object
+  properties:
+    id:
+      type: number
+    name:
+      type: string
+    givenName:
+      type: string
+    gender:
+      type: string
+      enum: [female, male, divers, org]
+    wikiUrl:
+      type: string
+      format: url
+    laureateUrl:
+      type: string
+      format: url
+    externalUrl:
+      type: string
+      format: url
+    birth:
+      type: string
+      format: date
+    birthYear:
+      type: number
+      format: year
+    death:
+      type: string
+      format: date
+    deathYear:
+      type: number
+      format: year
+    birthLocation:
+      type: string
+    deathLocation:
+      type: string
+    prizesErr:
+      type: string
+    prizes:
+      $ref: './prize_response_schema.yaml'

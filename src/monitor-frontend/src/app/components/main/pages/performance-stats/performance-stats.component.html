@@ -1,0 +1,83 @@
+<app-page-title title="main.statistics.title" icon="bar_chart"></app-page-title>
+
+<ng-container
+    *ngIf="
+        statistics.isConnected && statistics.statistics as stats;
+        else noData
+    "
+>
+    <ng-container
+        *ngIf="statistics.statistics | statisticsMapping as stats; else noData"
+    >
+        <div class="mb-n3" *ngIf="stats.length; else noData">
+            <div *ngFor="let pathMethodGroup of stats" class="my-3">
+                <app-path-method-badge
+                    [path]="pathMethodGroup.path"
+                    [method]="pathMethodGroup.method"
+                    [additionalInformation]="pathMethodGroup.count"
+                ></app-path-method-badge>
+
+                <div class="pt-3">
+                    <mat-chip-list [multiple]="true">
+                        <mat-chip
+                            *ngFor="let tag of pathMethodGroup.tags"
+                            color="primary"
+                            [selected]="pathMethodGroup.selectedTags[tag]"
+                            (click)="onChipSelected(pathMethodGroup, tag)"
+                        >
+                            {{ 'main.statistics.chart.tag.' + tag | translate }}
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+
+                <ng-container
+                    *ngIf="
+                        pathMethodGroup.charts
+                            | tagFilter
+                                : pathMethodGroup.subscribableSelectedTags as stats
+                    "
+                >
+                    <div
+                        class="row pt-3 m-n2"
+                        *ngIf="stats.length; else noStats"
+                    >
+                        <div
+                            *ngFor="let stat of stats"
+                            class="chart col-12 col-sm-6 p-2 mx-auto"
+                            [class.col-sm-12]="stat.large"
+                        >
+                            <app-chart
+                                [(large)]="stat.large"
+                                [chart]="stat"
+                            ></app-chart>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-template #noStats>
+                    <div class="pt-3 d-flex">
+                        <div class="m-auto d-flex flex-column grey">
+                            <mat-icon class="h2 mx-auto mb-3">
+                                insights
+                            </mat-icon>
+                            <p class="h4 mx-auto text-center">
+                                {{
+                                    'main.statistics.nothingSelected.title'
+                                        | translate
+                                }}
+                            </p>
+                            <p class="mx-auto text-center">
+                                {{
+                                    'main.statistics.nothingSelected.message'
+                                        | translate
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-template #noData><app-no-data></app-no-data></ng-template>

@@ -1,0 +1,53 @@
+{
+    "services": {
+        "sync": [
+            {
+                "name": "monolith",
+                "host": "teda_s01_modulith",
+                "port": 8080,
+                "sourceOfTruth": false
+            },
+            {
+                "name": "sba",
+                "host": "teda_s02_service_query",
+                "port": 8080,
+                "sourceOfTruth": false
+            },
+            {
+                "name": "microservices",
+                "host": "teda_s03_service_query",
+                "port": 8080,
+                "sourceOfTruth": true
+            }
+        ],
+        "async": [
+            {
+                "name": "event-driven microservices",
+                "host": "teda_s04_service_query",
+                "port": 8080,
+                "sourceOfTruth": false
+            }
+        ]
+    },
+    "logging": {
+        "logAsynchronousMessages": true,
+        "logServiceResults": false
+    },
+    "ipc": {
+        "syncToAsync": {
+            "/query": {
+                "POST": {
+                    "comparedPropertyIfExists": "serviceResults",
+                    "removeNullValuesInComparison": true,
+                    "asyncChannel": null,
+                    "checkErrors": ["[*].error", "[*].results[*].prizesErr"],
+                    "completeIf": [
+                        "[*].results[*].prizes",
+                        "[*].results[*].prizesErr"
+                    ],
+                    "expectedSize": 6
+                }
+            }
+        }
+    }
+}

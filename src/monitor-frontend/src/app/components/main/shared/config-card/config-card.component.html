@@ -1,0 +1,48 @@
+<mat-card class="h-100 d-flex flex-column">
+    <mat-card-title> {{ config.name }} </mat-card-title>
+    <mat-card-subtitle class="text-monospace m-0">
+        {{ config.host }}:{{ config.port }}
+    </mat-card-subtitle>
+    <mat-card-content class="flex-grow-1 d-flex flex-column">
+        <mat-divider class="position-relative my-2 my-md-3"></mat-divider>
+
+        <div class="m-auto">
+            <div class="d-flex m-n1">
+                <mat-icon
+                    class="m-1"
+                    *ngIf="config.sync"
+                    [matTooltip]="'main.config.icon.sync' | translate"
+                >
+                    sync_alt
+                </mat-icon>
+
+                <mat-icon
+                    class="m-1"
+                    *ngIf="!config.sync"
+                    [matTooltip]="'main.config.icon.async' | translate"
+                >
+                    multiple_stop
+                </mat-icon>
+
+                <mat-icon
+                    class="m-1"
+                    [class.grey]="!config.sourceOfTruth"
+                    [matTooltip]="
+                        (config.sourceOfTruth
+                            ? 'main.config.icon.verified'
+                            : 'main.config.icon.notVerified'
+                        ) | translate
+                    "
+                >
+                    verified
+                </mat-icon>
+            </div>
+        </div>
+        <ng-content></ng-content>
+    </mat-card-content>
+    <mat-card-actions class="d-flex" *ngIf="responseData">
+        <button class="ml-auto" mat-flat-button color="primary" (click)="openResponseData()">
+            {{ 'main.history.viewResults' | translate }}
+        </button>
+    </mat-card-actions>
+</mat-card>

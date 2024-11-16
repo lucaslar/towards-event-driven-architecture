@@ -1,0 +1,100 @@
+{
+    "app": {
+        "title": "Nobel Laureates Search Tool",
+        "subtitle": "Towards EDA - HTW Berlin, 2022"
+    },
+    "general": {
+        "close": "Close",
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "next": "Next",
+        "previous": "Previous",
+        "reset": "Reset",
+        "gender": {
+            "female": "Female",
+            "male": "Male",
+            "divers": "X",
+            "org": "Organization"
+        }
+    },
+    "action": {
+        "deleteAll": "Delete all results",
+        "info": "Information",
+        "language": "Language selection",
+        "search": "Search"
+    },
+    "searchForm": {
+        "title": {
+            "personal": "Personal data",
+            "birthDate": "Date of birth",
+            "birthLocation": "Place of birth",
+            "deathDate": "Date of death",
+            "deathLocation": "Place of death"
+        },
+        "field": {
+            "firstName": "First name",
+            "lastName": "Last name (or organization)",
+            "gender": "Gender",
+            "date": {
+                "yearOnly": "Year only",
+                "date": "Date",
+                "year": "Year",
+                "operator": {
+                    "label": "Operator",
+                    "eq": "Equals",
+                    "lt": "Less than",
+                    "gt": "Greater than"
+                }
+            }
+        }
+    },
+    "searchResult": {
+        "delete": "Delete results",
+        "queryDetails": {
+            "title": "Query details",
+            "hide": "Hide query details",
+            "show": "Show query details"
+        },
+        "laureateService": {
+            "Chemistry": "Chemistry",
+            "Literature": "Literature",
+            "Peace": "Peace",
+            "Physics": "Physics",
+            "Physiology or Medicine": "Physiology or Medicine",
+            "Economic Sciences": "Economic Sciences"
+        },
+        "nResults": "{{ n }} results",
+        "error": "An error occurred."
+    },
+    "dialog": {
+        "error": "An error occurred...",
+        "searchResult": {
+            "born": "Born",
+            "passed": "Passed",
+            "bornAndPassed": "Born and passed"
+        },
+        "deleteAll": "Are you sure you want to delete all search results? This cannot be undone.",
+        "deleteOne": "Are you sure you want to delete the results for search \"{{ uuid }}\"? This cannot be undone.",
+        "laureate": {
+            "adjusted": "adjusted",
+            "learnMore": "Learn more about {{ name }}:",
+            "laureateOnUrl": "{{ name }} on {{ platform }}",
+            "prizesErr": "Prize data could not be loaded. Reason:"
+        },
+        "info": "This frontend is used for querying the exemplary Laureate Search Tool implemented within the scope of a master thesis. The request is sent to the Parallel Run Service which proxies it to a synchronous microservice architecture while sending the same query to further implementations of the tool in order to evaluate how different architectures perform in comparison."
+    },
+    "snackbar": {
+        "geoHash": {
+            "locked": {
+                "child": "\"{{ hash }}\" cannot be selected, because one or more child geohashes, e.g. \"{{ lockReason }}\", are selected.",
+                "parent": "\"{{ hash }}\" cannot be selected, because a parent geohash (\"{{ lockReason }}\") is selected."
+            },
+            "invalid": "Invalid geohash: {{ hash }}"
+        }
+    },
+    "noResults": {
+        "title": "No results",
+        "message1": "There are no stored results of previous searches.",
+        "message2": "Start a search using the button in the bottom right!"
+    }
+}

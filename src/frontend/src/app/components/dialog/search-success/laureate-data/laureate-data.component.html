@@ -1,0 +1,104 @@
+<mat-card class="h-100 d-flex flex-column">
+    <mat-card-title class="d-flex mx-n1">
+        <mat-icon class="my-auto mx-1">{{ genderIcon }}</mat-icon>
+        <div class="my-auto mx-1 flex-grow-1">
+            {{ laureate.givenName }} {{ laureate.name }}
+        </div>
+    </mat-card-title>
+
+    <ng-container
+        *ngIf="
+            laureate.birth ||
+            laureate.birthYear ||
+            laureate.death ||
+            laureate.deathYear
+        "
+    >
+        <mat-divider class="position-relative my-2"></mat-divider>
+
+        <div class="row">
+            <div *ngIf="laureate.birth || laureate.birthYear" class="col-6">
+                <fa-icon class="mr-1" [icon]="birthIcon"></fa-icon>
+                {{ (laureate.birth | date) ?? laureate.birthYear }}
+            </div>
+
+            <div *ngIf="laureate.death || laureate.deathYear" class="col-6">
+                <fa-icon class="mr-1" [icon]="deathIcon"></fa-icon>
+                {{ (laureate.death | date) ?? laureate.deathYear }}
+            </div>
+        </div>
+    </ng-container>
+
+    <mat-divider class="position-relative my-2"></mat-divider>
+
+    <div
+        *ngIf="laureate.prizesErr; else prizes"
+        class="flex-grow-1 py-2 color-warn"
+    >
+        {{ 'dialog.laureate.prizesErr' | translate }}
+        <pre class="m-0 color-warn">{{ laureate.prizesErr }}</pre>
+    </div>
+
+    <ng-template #prizes>
+        <div
+            *ngFor="let p of laureate.prizes"
+            class="prize d-flex flex-grow-1 p-2"
+        >
+            <fa-icon
+                [icon]="laureateServiceMap[p.category].icon"
+                class="my-auto"
+            ></fa-icon>
+
+            <div class="ml-2 d-flex flex-column my-auto">
+                <span>
+                    <strong>
+                        {{
+                            'searchResult.laureateService.' + p.category
+                                | translate
+                        }}
+                    </strong>
+                    ({{ p.year }})
+                </span>
+                <span>
+                    {{ p.prizeAmount | currency }}
+                    ({{ 'dialog.laureate.adjusted' | translate }}
+                    {{ p.prizeAmountAdjusted | currency }})
+                </span>
+            </div>
+        </div>
+    </ng-template>
+
+    <mat-divider class="position-relative my-2"></mat-divider>
+
+    <div class="d-flex mx-n2">
+        <em class="mx-2 my-auto flex-grow-1">
+            {{ 'dialog.laureate.learnMore' | translate: { name: name } }}
+        </em>
+
+        <a
+            [href]="laureate.externalUrl"
+            target="_blank"
+            mat-ripple
+            class="d-flex mx-2 my-auto url-ref mat-elevation-z3 background-primary"
+            [matTooltip]="
+                'dialog.laureate.laureateOnUrl'
+                    | translate: { platform: 'nobelprize.org', name: name }
+            "
+        >
+            <fa-icon [icon]="nobelPrizeIcon" class="m-auto"></fa-icon>
+        </a>
+
+        <a
+            [href]="laureate.wikiUrl"
+            target="_blank"
+            mat-ripple
+            class="d-flex mx-2 my-auto url-ref mat-elevation-z3 background-primary"
+            [matTooltip]="
+                'dialog.laureate.laureateOnUrl'
+                    | translate: { platform: 'wikipedia.org', name: name }
+            "
+        >
+            <fa-icon [icon]="wikiIcon" class="m-auto"></fa-icon>
+        </a>
+    </div>
+</mat-card>

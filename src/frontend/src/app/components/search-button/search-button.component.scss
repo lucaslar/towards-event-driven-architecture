@@ -1,0 +1,29 @@
+button {
+    bottom: 24px;
+    right: 24px;
+    height: 64px;
+    border-radius: 32px;
+
+    @media (min-width: 768px) {
+        bottom: 32px;
+        right: 32px;
+    }
+
+    &,
+    * {
+        -webkit-transition: max-width 0.7s, background-color 0.3s, opacity 0.3s;
+        transition: max-width 0.7s, background-color 0.3s, opacity 0.3s;
+    }
+
+    .search-text {
+        max-width: 0;
+        display: inline-block;
+        vertical-align: top;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    &:not(:disabled):hover .search-text {
+        max-width: 7rem;
+    }
+}

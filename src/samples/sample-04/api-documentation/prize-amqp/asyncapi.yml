@@ -1,0 +1,124 @@
+asyncapi: '2.3.0'
+
+info:
+  title: Prize Service AMQP API
+  version: '1.0-SNAPSHOT'
+  description: |
+    Check out further documentations of this architecture:
+      - [Query Service (WS)](/query-ws/)
+      - [Query Service (AMQP)](/query-amqp/)
+      - [Laureate Service (AMQP)](/laureate-amqp/)
+channels:
+  prize.results:
+    subscribe:
+      summary: Receive data for found prizes.
+      message:
+        $ref: '#/components/messages/prizeResultsData'
+  prize.failed:
+    subscribe:
+      summary: Receive information about a failed prize search.
+      message:
+        $ref: '#/components/messages/prizeFailed'
+  laureate.results:
+    publish:
+      summary: Reacts to data for found laureates.
+      message:
+        $ref: '#/components/messages/laureateResultsData'
+
+components:
+  messages:
+    laureateResultsData:
+      summary: Results from a Laureate Service
+      payload:
+        $ref: '#/components/schemas/laureateData'
+    prizeFailed:
+      summary: Information about a failed prize search.
+      payload:
+        $ref: '#/components/schemas/failedData'
+    prizeResultsData:
+      summary: Results from the Prize Service
+      payload:
+        $ref: '#/components/schemas/prizeData'
+
+  schemas:
+    laureateData:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        scope:
+          type: string
+        laureates:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+              givenName:
+                type: string
+              gender:
+                type: string
+                enum: [female, male, divers, org]
+              wikiUrl:
+                type: string
+                format: url
+              laureateUrl:
+                type: string
+                format: url
+              externalUrl:
+                type: string
+                format: url
+              birth:
+                type: string
+                format: date
+              birthYear:
+                type: number
+                format: year
+              death:
+                type: string
+                format: date
+              deathYear:
+                type: number
+                format: year
+              birthLocation:
+                type: string
+              deathLocation:
+                type: string
+    prizeData:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        scope:
+          type: string
+        prizes:
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                type: string
+              laureate:
+                type: integer
+              year:
+                type: number
+                format: year
+              prizeAmount:
+                type: integer
+              prizeAmountAdjusted:
+                type: integer
+    failedData:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        message:
+          type: string
+        scope:
+          type: string

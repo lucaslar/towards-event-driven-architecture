@@ -1,0 +1,43 @@
+<mat-card class="h-100">
+    <div class="d-flex flex-row mb-2">
+        <mat-card-title class="my-auto mr-auto">
+            {{ chart.titleKey | translate: chart.titleParams }}
+        </mat-card-title>
+        <div class="d-flex ml-2">
+            <button
+                (click)="largeChange.emit(!this.large)"
+                class="d-none d-sm-flex tec-info p-0"
+                [matTooltip]="
+                    (large
+                        ? 'main.statistics.chart.sizing.smaller'
+                        : 'main.statistics.chart.sizing.larger'
+                    ) | translate
+                "
+            >
+                <mat-icon class="m-auto">
+                    {{ large ? 'close_fullscreen' : 'open_in_full' }}
+                </mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <mat-card-content>
+        <canvas
+            baseChart
+            [datasets]="chart.data"
+            [labels]="chart.labels"
+            [options]="chart.options"
+            [legend]="chart.showLegend"
+            [type]="chart.type"
+        >
+        </canvas>
+
+        <div class="mt-3">
+            <mat-chip-list>
+                <mat-chip *ngFor="let tag of chart.tags" [selectable]="false">
+                    {{ 'main.statistics.chart.tag.' + tag | translate }}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+    </mat-card-content>
+</mat-card>

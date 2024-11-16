@@ -1,0 +1,239 @@
+version: "3.8"
+services:
+  message_broker:
+    image: rabbitmq:3-management-alpine
+    container_name: teda_s04_message_broker
+    hostname: s04-rabbitmq
+    volumes:
+      - ./rabbitmq-data:/var/lib/rabbitmq/mnesia/rabbit@s04-rabbitmq
+    ports:
+      - '15672:15672'
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      interval: 5s
+      timeout: 15s
+      retries: 1
+    networks:
+      - towardseda_s04_default
+
+  database_prizes:
+    container_name: teda_s04_database_prizes
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/prizes/data:/data
+      - ./databases/prizes/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s04_default
+
+  database_laureates_chemistry:
+    container_name: teda_s04_database_chemistry
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/chemistry/data:/data
+      - ./databases/laureates/chemistry/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s04_default
+
+  database_laureates_literature:
+    container_name: teda_s04_database_literature
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/literature/data:/data
+      - ./databases/laureates/literature/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s04_default
+
+  database_laureates_peace:
+    container_name: teda_s04_database_peace
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/peace/data:/data
+      - ./databases/laureates/peace/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s04_default
+
+  database_laureates_physics:
+    container_name: teda_s04_database_physics
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/physics/data:/data
+      - ./databases/laureates/physics/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s04_default
+
+  database_laureates_medicine:
+    container_name: teda_s04_database_medicine
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/physiology/data:/data
+      - ./databases/laureates/physiology/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s04_default
+
+  database_laureates_economics:
+    container_name: teda_s04_database_economics
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/economic/data:/data
+      - ./databases/laureates/economic/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s04_default
+
+  service_prize:
+    container_name: teda_s04_service_prizes
+    build:
+      context: services/prize-service
+      args:
+        - MAIN_MODULE=config.amqp
+    depends_on:
+      - database_prizes
+      - message_broker
+    environment:
+      - PG_HOST=teda_s04_database_prizes
+      - RABBIT_HOST=s04-rabbitmq
+    networks:
+      - towardseda_s04_default
+
+  service_laureates_chemistry:
+    container_name: teda_s04_service_laureates_chemistry
+    depends_on:
+      - database_laureates_chemistry
+      - message_broker
+    image: towardseda/sharedimgs-ed/laureate-service-04
+    environment:
+      - PG_HOST=teda_s04_database_chemistry
+      - RABBIT_HOST=s04-rabbitmq
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=4
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=1
+      - SCOPE=Chemistry
+    networks:
+      - towardseda_s04_default
+
+  service_laureates_literature:
+    container_name: teda_s04_service_laureates_literature
+    depends_on:
+      - database_laureates_literature
+      - message_broker
+    image: towardseda/sharedimgs-ed/laureate-service-04
+    environment:
+      - PG_HOST=teda_s04_database_literature
+      - RABBIT_HOST=s04-rabbitmq
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=4
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=2
+      - SCOPE=Literature
+    networks:
+      - towardseda_s04_default
+
+  service_laureates_peace:
+    container_name: teda_s04_service_laureates_peace
+    depends_on:
+      - database_laureates_peace
+      - message_broker
+    image: towardseda/sharedimgs-ed/laureate-service-04
+    environment:
+      - PG_HOST=teda_s04_database_peace
+      - RABBIT_HOST=s04-rabbitmq
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=4
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=3
+      - SCOPE=Peace
+    networks:
+      - towardseda_s04_default
+
+  service_laureates_physics:
+    container_name: teda_s04_service_laureates_physics
+    depends_on:
+      - database_laureates_physics
+      - message_broker
+    image: towardseda/sharedimgs-ed/laureate-service-04
+    environment:
+      - PG_HOST=teda_s04_database_physics
+      - RABBIT_HOST=s04-rabbitmq
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=4
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=4
+      - SCOPE=Physics
+    networks:
+      - towardseda_s04_default
+
+  service_laureates_medicine:
+    container_name: teda_s04_service_laureates_medicine
+    depends_on:
+      - database_laureates_medicine
+      - message_broker
+    image: towardseda/sharedimgs-ed/laureate-service-04
+    environment:
+      - PG_HOST=teda_s04_database_medicine
+      - RABBIT_HOST=s04-rabbitmq
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=4
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=5
+      - SCOPE=Physiology or Medicine
+    networks:
+      - towardseda_s04_default
+
+  service_laureates_economics:
+    container_name: teda_s04_service_laureates_economics
+    depends_on:
+      - database_laureates_economics
+      - message_broker
+    image: towardseda/sharedimgs-ed/laureate-service-04
+    environment:
+      - PG_HOST=teda_s04_database_economics
+      - RABBIT_HOST=s04-rabbitmq
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=4
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=6
+      - SCOPE=Economic Sciences
+    networks:
+      - towardseda_s04_default
+
+  service_query:
+    container_name: teda_s04_service_query
+    build:
+      context: services/query-service
+      args:
+        - MAIN_MODULE=config.amqp
+    environment:
+      - RABBIT_HOST=s04-rabbitmq
+    depends_on:
+      - message_broker
+    networks:
+      - towardseda_s04_default
+      - towardseda_shared_to_samples
+
+  api_documentation:
+    container_name: teda_s04_api-documentation
+    build:
+      context: api-documentation
+    ports:
+      - '8104:8080'
+
+networks:
+  towardseda_s04_default:
+  towardseda_shared_to_samples:
+    external: true

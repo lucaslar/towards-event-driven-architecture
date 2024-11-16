@@ -1,0 +1,100 @@
+{
+    "app": {
+        "title": "Herramienta de Búsqueda de Premios Nobel",
+        "subtitle": "Towards EDA - HTW Berlin, 2022"
+    },
+    "general": {
+        "close": "Cerrar",
+        "confirm": "Confirmar",
+        "delete": "Borrar",
+        "next": "Siguiente",
+        "previous": "Anterior",
+        "reset": "Reiniciar",
+        "gender": {
+            "female": "Femenino",
+            "male": "Masculino",
+            "divers": "X",
+            "org": "Organización"
+        }
+    },
+    "action": {
+        "info": "Información",
+        "language": "Selección de idioma",
+        "search": "Búsqueda",
+        "deleteAll": "Borrar todos los resultados"
+    },
+    "searchForm": {
+        "title": {
+            "personal": "Datos personales",
+            "birthDate": "Fecha de nacimiento",
+            "birthLocation": "Lugar de nacimiento",
+            "deathDate": "Fecha de fallecimiento",
+            "deathLocation": "Lugar de fallecimiento"
+        },
+        "field": {
+            "firstName": "Nombre",
+            "lastName": "Apellido (u organización)",
+            "gender": "Género",
+            "date": {
+                "yearOnly": "Sólo año",
+                "date": "Fecha",
+                "year": "Año",
+                "operator": {
+                    "label": "Operador",
+                    "eq": "Igual",
+                    "lt": "Menor que",
+                    "gt": "Mayor que"
+                }
+            }
+        }
+    },
+    "searchResult": {
+        "delete": "Borrar resultados",
+        "queryDetails": {
+            "title": "Detalles de la consulta",
+            "hide": "Ocultar detalles de la consultan",
+            "show": "Mostrar detalles de la consultan"
+        },
+        "laureateService": {
+            "Chemistry": "Química",
+            "Literature": "Literatura",
+            "Peace": "Paz",
+            "Physics": "Física",
+            "Physiology or Medicine": "Fisiología o Medicina",
+            "Economic Sciences": "Ciencias Económicas"
+        },
+        "nResults": "{{ n }} resultados",
+        "error": "Ocurrió un error."
+    },
+    "dialog": {
+        "error": "Ha ocurrido un error...",
+        "searchResult": {
+            "born": "Nascidx",
+            "passed": "Falecidx",
+            "bornAndPassed": "Nascidx y falecidx"
+        },
+        "deleteAll": "¿Estás segurx de que quieres borrar todos los resultados de búsqueda? Esto no podrá ser deshecho.",
+        "deleteOne": "¿Estás segurx de que quieres borrar los resultados de la búsqueda \"{{ uuid }}\"? Esto no podrá ser deshecho.",
+        "laureate": {
+            "adjusted": "ajustado",
+            "learnMore": "Aprende más sobre {{ name }}:",
+            "laureateOnUrl": "{{ name }} en {{ platform }}",
+            "prizesErr": "Datos sobre premios no pudieron ser cargadas. Razón:"
+        },
+        "info": "Este frontend puede utilizarse para realizar consultas a la ejemplar Herramienta de Búsqueda de Premios Nobel, que se implementó en el marco de una tesis de máster. La consulta se envía al Parallel Run Service, que sirve como proxy a una arquitectura síncrona de microservicios y al mismo tiempo envía la misma consulta a otras implementaciones de la herramienta para poder evaluar el rendimiento de diferentes arquitecturas en comparación."
+    },
+    "snackbar": {
+        "geoHash": {
+            "locked": {
+                "child": "\"{{ hash }}\" no puede ser seleccionado porque un o más child geohashes, p.ej. \"{{ lockReason }}\", están selectados.",
+                "parent": "\"{{ hash }}\" no puede ser seleccionado porque un parent geohash (\"{{ lockReason }}\") está selectado."
+            },
+            "invalid": "Geohash inválido: {{ hash }}"
+        }
+    },
+    "noResults": {
+        "title": "Ningún resultado",
+        "message1": "No hay ningún resultado almacenado de búsquedas anteriores.",
+        "message2": "Inicia una búsqueda utilizando el botón en la parte inferior derecha!"
+    }
+}

@@ -1,0 +1,30 @@
+<mat-card
+    mat-ripple
+    class="d-flex flex-column h-100 mat-elevation-z0
+            {{ elevate ? 'mat-elevation-z9 background-accent' : '' }}
+            {{ serviceResult.error ? 'background-warn' : 'background-primary' }}
+          "
+    [class.has-data]="hasData"
+    (click)="openDetails()"
+    (keydown.enter)="openDetails()"
+    (keydown.space)="openDetails()"
+    (mouseover)="elevate = hasData && true"
+    (mouseout)="elevate = false"
+    (focus)="elevate = hasData && true"
+    (focusout)="elevate = false"
+    tabindex="0"
+>
+    <fa-icon class="m-auto" *ngIf="icon" [icon]="icon"></fa-icon>
+    <strong class="pt-3 mx-auto">
+        {{
+            'searchResult.laureateService.' + serviceResult.service | translate
+        }}
+    </strong>
+    <div class="flex-grow-1 d-flex my-2">
+        <mat-divider class="position-relative my-auto"></mat-divider>
+    </div>
+    {{
+        'searchResult.' + (serviceResult.error ? 'error' : 'nResults')
+            | translate: { n: serviceResult.results?.length }
+    }}
+</mat-card>

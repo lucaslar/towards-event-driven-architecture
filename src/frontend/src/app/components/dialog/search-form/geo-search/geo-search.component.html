@@ -1,0 +1,44 @@
+<div class="flex-grow-1">
+    <div
+        leaflet
+        class="map"
+        (leafletMapReady)="mapReady($event)"
+        [leafletOptions]="mapOptions"
+        (leafletMapMove)="addLayers()"
+    ></div>
+</div>
+<div class="mt-2 d-flex">
+    <mat-form-field
+        class="flex-grow-1 no-child-padding no-min-size-input"
+        appearance="outline"
+    >
+        <mat-label>Geohashes</mat-label>
+        <mat-chip-list #chipList>
+            <mat-chip
+                *ngFor="let geoHash of selection"
+                [removable]="true"
+                (removed)="removeByChip(geoHash)"
+            >
+                {{ geoHash }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input
+                name="geohash"
+                [matChipInputFor]="chipList"
+                [matChipInputAddOnBlur]="true"
+                (matChipInputTokenEnd)="addByChip($event)"
+            />
+        </mat-chip-list>
+    </mat-form-field>
+    <div class="d-flex">
+        <button
+            mat-icon-button
+            class="my-auto ml-2"
+            [disabled]="!selection.length"
+            (click)="deleteSelection()"
+            [matTooltip]="'general.reset' | translate"
+        >
+            <mat-icon>restart_alt</mat-icon>
+        </button>
+    </div>
+</div>

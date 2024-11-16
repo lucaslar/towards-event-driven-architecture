@@ -1,0 +1,57 @@
+@import 'theme';
+@import 'variables';
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.grey {
+    color: #808080;
+}
+
+.color-primary {
+    color: mat-color($primary-palette) !important;
+}
+
+.background-primary {
+    background: mat-color($primary-palette) !important;
+    color: mat-color($primary-palette, default-contrast) !important;
+}
+
+.color-warn {
+    color: mat-color($warn-palette) !important;
+}
+
+.background-warn {
+    background: mat-color($warn-palette) !important;
+    color: mat-color($warn-palette, default-contrast) !important;
+}
+
+.color-accent {
+    color: mat-color($accent-palette) !important;
+}
+
+.background-accent {
+    background: mat-color($accent-palette) !important;
+    color: mat-color($accent-palette, default-contrast) !important;
+}
+
+.socket-status {
+    transition: 1s color, 1s background;
+}
+
+.tec-info {
+    background: black;
+    border-radius: 200px;
+    border: 2px solid #646464;
+}
+
+pre,
+.tec-info {
+    color: white !important;
+}

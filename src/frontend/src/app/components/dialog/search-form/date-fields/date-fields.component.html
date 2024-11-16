@@ -1,0 +1,137 @@
+<div class="d-flex flex-column flex-lg-row">
+    <div class="d-flex m-n2 slide-row flex-grow-1">
+        <mat-form-field
+            appearance="outline"
+            class="m-2 no-child-padding no-min-size-input"
+            [class.flex-grow-1]="!dateFields.yearOnly"
+        >
+            <input
+                matInput
+                [matDatepicker]="picker"
+                [disabled]="dateFields.yearOnly"
+                (focus)="picker.open()"
+                [(ngModel)]="dateFields.date"
+                name="date"
+                readonly
+            />
+            <mat-icon matSuffix *ngIf="!dateFields.yearOnly"
+                >date_range</mat-icon
+            >
+            <mat-label>
+                {{ 'searchForm.field.date.date' | translate }}
+            </mat-label>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-slide-toggle
+            color="primary"
+            class="m-auto"
+            [(ngModel)]="dateFields.yearOnly"
+            (ngModelChange)="
+                dateFields.year = undefined; dateFields.date = undefined
+            "
+        >
+            {{ 'searchForm.field.date.yearOnly' | translate }}
+        </mat-slide-toggle>
+
+        <mat-form-field
+            appearance="outline"
+            class="m-2 no-child-padding no-min-size-input"
+            [class.flex-grow-1]="dateFields.yearOnly"
+        >
+            <input
+                matInput
+                [disabled]="!dateFields.yearOnly"
+                type="number"
+                [(ngModel)]="dateFields.year"
+                name="year"
+            />
+            <mat-icon matSuffix *ngIf="dateFields.yearOnly">
+                calendar_today
+            </mat-icon>
+            <mat-label>
+                {{ 'searchForm.field.date.year' | translate }}
+            </mat-label>
+        </mat-form-field>
+    </div>
+
+    <div class="position-relative mx-lg-3 my-3">
+        <mat-divider></mat-divider>
+    </div>
+
+    <div class="m-n2 d-flex">
+        <div class="my-auto mx-2">
+            {{ 'searchForm.field.date.operator.label' | translate }}:
+        </div>
+
+        <button
+            mat-icon-button
+            color="primary"
+            class="my-auto mx-2"
+            (click)="dateFields.operator = 'eq'"
+            *ngIf="dateFields.operator !== 'eq'; else eqSelected"
+            [disabled]="!dateFields.date && !dateFields.year"
+            [matTooltip]="'searchForm.field.date.operator.eq' | translate"
+        >
+            <fa-icon [icon]="equalsIcon"></fa-icon>
+        </button>
+
+        <button
+            mat-icon-button
+            color="primary"
+            class="my-auto mx-2"
+            (click)="dateFields.operator = 'gt'"
+            *ngIf="dateFields.operator !== 'gt'; else gtSelected"
+            [disabled]="!dateFields.date && !dateFields.year"
+            [matTooltip]="'searchForm.field.date.operator.gt' | translate"
+        >
+            <fa-icon [icon]="gtIcon"></fa-icon>
+        </button>
+
+        <button
+            mat-icon-button
+            color="primary"
+            class="my-auto mx-2"
+            (click)="dateFields.operator = 'lt'"
+            *ngIf="dateFields.operator !== 'lt'; else ltSelected"
+            [disabled]="!dateFields.date && !dateFields.year"
+            [matTooltip]="'searchForm.field.date.operator.lt' | translate"
+        >
+            <fa-icon [icon]="ltIcon"></fa-icon>
+        </button>
+    </div>
+</div>
+
+<ng-template #eqSelected>
+    <button
+        mat-mini-fab
+        color="primary"
+        class="my-auto mx-2"
+        [disabled]="!dateFields.date && !dateFields.year"
+        [matTooltip]="'searchForm.field.date.operator.eq' | translate"
+    >
+        <fa-icon [icon]="equalsIcon"></fa-icon>
+    </button>
+</ng-template>
+<ng-template #ltSelected>
+    <button
+        mat-mini-fab
+        color="primary"
+        class="my-auto mx-2"
+        [disabled]="!dateFields.date && !dateFields.year"
+        [matTooltip]="'searchForm.field.date.operator.lt' | translate"
+    >
+        <fa-icon [icon]="ltIcon"></fa-icon>
+    </button>
+</ng-template>
+<ng-template #gtSelected>
+    <button
+        mat-mini-fab
+        color="primary"
+        class="my-auto mx-2"
+        [disabled]="!dateFields.date && !dateFields.year"
+        [matTooltip]="'searchForm.field.date.operator.gt' | translate"
+    >
+        <fa-icon [icon]="gtIcon"></fa-icon>
+    </button>
+</ng-template>

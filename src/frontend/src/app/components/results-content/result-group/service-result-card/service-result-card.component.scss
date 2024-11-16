@@ -1,0 +1,15 @@
+mat-card {
+    &.has-data {
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    &:not(.has-data) {
+        cursor: default;
+        opacity: 0.7;
+    }
+
+    fa-icon {
+        font-size: xxx-large;
+    }
+}

@@ -1,0 +1,20 @@
+mat-sidenav-content {
+    min-height: 100vh;
+    header {
+        z-index: 2000;
+        top: 0;
+    }
+
+    main {
+        margin-top: 96px;
+
+        @media (max-width: 767.98px) {
+            margin-top: 80px;
+        }
+
+        #main-content {
+            max-width: 1600px;
+            overflow: hidden;
+        }
+    }
+}

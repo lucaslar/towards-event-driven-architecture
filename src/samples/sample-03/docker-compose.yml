@@ -1,0 +1,217 @@
+version: "3.8"
+services:
+  database_prizes:
+    container_name: teda_s03_database_prizes
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/prizes/data:/data
+      - ./databases/prizes/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s03_default
+
+  database_laureates_chemistry:
+    container_name: teda_s03_database_chemistry
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/chemistry/data:/data
+      - ./databases/laureates/chemistry/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s03_default
+
+  database_laureates_literature:
+    container_name: teda_s03_database_literature
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/literature/data:/data
+      - ./databases/laureates/literature/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s03_default
+
+  database_laureates_peace:
+    container_name: teda_s03_database_peace
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/peace/data:/data
+      - ./databases/laureates/peace/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s03_default
+
+  database_laureates_physics:
+    container_name: teda_s03_database_physics
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/physics/data:/data
+      - ./databases/laureates/physics/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s03_default
+
+  database_laureates_medicine:
+    container_name: teda_s03_database_medicine
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/physiology/data:/data
+      - ./databases/laureates/physiology/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s03_default
+
+  database_laureates_economics:
+    container_name: teda_s03_database_economics
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./databases/laureates/economic/data:/data
+      - ./databases/laureates/economic/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s03_default
+
+  service_prize:
+    container_name: teda_s03_service_prizes
+    depends_on:
+      - database_prizes
+    image: towardseda/sharedimgs-rest/prize-service
+    environment:
+      - PG_HOST=teda_s03_database_prizes
+    networks:
+      - towardseda_s03_default
+
+  service_laureates_chemistry:
+    container_name: teda_s03_service_laureates_chemistry
+    depends_on:
+      - database_laureates_chemistry
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-03
+    environment:
+      - PG_HOST=teda_s03_database_chemistry
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=3
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=1
+      - PRIZE_SERVICE_HOST=teda_s03_service_prizes
+    networks:
+      - towardseda_s03_default
+
+  service_laureates_literature:
+    container_name: teda_s03_service_laureates_literature
+    depends_on:
+      - database_laureates_literature
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-03
+    environment:
+      - PG_HOST=teda_s03_database_literature
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=3
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=2
+      - PRIZE_SERVICE_HOST=teda_s03_service_prizes
+    networks:
+      - towardseda_s03_default
+
+  service_laureates_peace:
+    container_name: teda_s03_service_laureates_peace
+    depends_on:
+      - database_laureates_peace
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-03
+    environment:
+      - PG_HOST=teda_s03_database_peace
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=3
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=3
+      - PRIZE_SERVICE_HOST=teda_s03_service_prizes
+    networks:
+      - towardseda_s03_default
+
+  service_laureates_physics:
+    container_name: teda_s03_service_laureates_physics
+    depends_on:
+      - database_laureates_physics
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-03
+    environment:
+      - PG_HOST=teda_s03_database_physics
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=3
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=4
+      - PRIZE_SERVICE_HOST=teda_s03_service_prizes
+    networks:
+      - towardseda_s03_default
+
+  service_laureates_medicine:
+    container_name: teda_s03_service_laureates_medicine
+    depends_on:
+      - database_laureates_medicine
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-03
+    environment:
+      - PG_HOST=teda_s03_database_medicine
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=3
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=5
+      - PRIZE_SERVICE_HOST=teda_s03_service_prizes
+    networks:
+      - towardseda_s03_default
+
+  service_laureates_economics:
+    container_name: teda_s03_service_laureates_economics
+    depends_on:
+      - database_laureates_economics
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-03
+    environment:
+      - PG_HOST=teda_s03_database_economics
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=3
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=6
+      - PRIZE_SERVICE_HOST=teda_s03_service_prizes
+    networks:
+      - towardseda_s03_default
+
+  service_query:
+    container_name: teda_s03_service_query
+    depends_on:
+      - service_laureates_chemistry
+      - service_laureates_literature
+      - service_laureates_peace
+      - service_laureates_physics
+      - service_laureates_medicine
+      - service_laureates_economics
+    image: towardseda/sharedimgs-rest/query-service
+    volumes:
+      - ./query-service-config.json:/application/config.json
+    networks:
+      - towardseda_s03_default
+      - towardseda_shared_to_samples
+
+  api_documentation:
+    image: swaggerapi/swagger-ui
+    container_name: teda_s03_api-documentation
+    volumes:
+      - ./api-documentation:/usr/share/nginx/html/doc
+    ports:
+      - '8103:8080'
+    environment:
+      - API_URL=doc/query-service.yaml
+
+networks:
+  towardseda_s03_default:
+  towardseda_shared_to_samples:
+    external: true

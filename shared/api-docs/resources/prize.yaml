@@ -1,0 +1,36 @@
+PrizesPath:
+  get:
+    tags:
+      - Get Prize Data
+    summary: Request prize data for given laureate IDs.
+    parameters:
+      - in: query
+        name: lid
+        description: One or more Laureate IDs
+        required: true
+        schema:
+          type: array
+          items:
+            type: integer
+        style: form
+        explode: false
+        examples:
+          oneId:
+            summary: Single ID (21)
+            value: [ 42 ]
+          multipleIds:
+            summary: Multiple IDs (21,42)
+            value: [ 21, 42 ]
+
+    responses:
+      '200':
+        description: Prizes of laureates with the given ID/IDs.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/prize_response_schema.yaml'
+            examples:
+              Single ID (21):
+                value: [ { "category": "Physics","laureate": 42,"year": 1936,"prizeAmount": 159850,"prizeAmountAdjusted": 5002519 } ]
+              Multiple IDs (21,42):
+                value: [ { "category": "Physics","laureate": 42,"year": 1936,"prizeAmount": 159850,"prizeAmountAdjusted": 5002519 },{ "category": "Physics","laureate": 123,"year": 1983,"prizeAmount": 1500000,"prizeAmountAdjusted": 3782695 } ]

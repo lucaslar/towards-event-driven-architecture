@@ -1,0 +1,49 @@
+<app-dialog
+    [titleKey]="'searchResult.laureateService.' + service"
+    [faIcon]="icon"
+>
+    <ng-container *ngIf="markers?.length">
+        <div class="d-flex flex-column flex-md-row mt-n1 mx-n2">
+            <div class="d-flex">
+                <div class="circle background-accent my-1 mx-2"></div>
+                <span class="my-auto">
+                    {{ 'dialog.searchResult.born' | translate }}
+                </span>
+            </div>
+            <div class="d-flex">
+                <div class="circle my-1 mx-2"></div>
+                <span class="my-auto">
+                    {{ 'dialog.searchResult.passed' | translate }}
+                </span>
+            </div>
+            <div class="d-flex">
+                <div class="circle background-primary my-1 mx-2"></div>
+                <span class="my-auto">
+                    {{ 'dialog.searchResult.bornAndPassed' | translate }}
+                </span>
+            </div>
+        </div>
+
+        <div
+            class="map mt-1"
+            leaflet
+            (leafletMapReady)="mapReady($event)"
+            [leafletOptions]="mapOptions"
+        ></div>
+    </ng-container>
+
+    <div class="row mt-2 mx-n2">
+        <div
+            class="col-12 col-lg-6 laureate-mapper p-2"
+            *ngFor="let laureate of laureates"
+        >
+            <app-laureate-data [laureate]="laureate"></app-laureate-data>
+        </div>
+    </div>
+</app-dialog>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="" color="primary">
+        {{ 'general.close' | translate }}
+    </button>
+</mat-dialog-actions>

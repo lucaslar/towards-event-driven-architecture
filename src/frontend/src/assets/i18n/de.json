@@ -1,0 +1,100 @@
+{
+    "app": {
+        "title": "Nobelpreisträger:innen-Suchwerkzeug",
+        "subtitle": "Towards EDA - HTW Berlin, 2022"
+    },
+    "general": {
+        "close": "Schließen",
+        "confirm": "Bestätigen",
+        "delete": "Löschen",
+        "next": "Nächste",
+        "previous": "Vorherige",
+        "reset": "Zurücksetzen",
+        "gender": {
+            "female": "Weiblich",
+            "male": "Männlich",
+            "divers": "X",
+            "org": "Organisation"
+        }
+    },
+    "action": {
+        "info": "Informationen",
+        "language": "Sprachauswahl",
+        "search": "Suche",
+        "deleteAll": "Alle Ergebnisse löschen"
+    },
+    "searchForm": {
+        "title": {
+            "personal": "Persönliche Daten",
+            "birthDate": "Geburtsdatum",
+            "birthLocation": "Geburtsort",
+            "deathDate": "Sterbedatum",
+            "deathLocation": "Sterbeort"
+        },
+        "field": {
+            "firstName": "Vorname",
+            "lastName": "Nachname (oder Organisation)",
+            "gender": "Geschlecht",
+            "date": {
+                "yearOnly": "Nur Jahr",
+                "date": "Datum",
+                "year": "Jahr",
+                "operator": {
+                    "label": "Operator",
+                    "eq": "Gleich",
+                    "lt": "Kleiner als",
+                    "gt": "Größer als"
+                }
+            }
+        }
+    },
+    "searchResult": {
+        "delete": "Ergebnisse löschen",
+        "queryDetails": {
+            "title": "Query-Details",
+            "hide": "Query-Details verbergen",
+            "show": "Query-Details anzeigen"
+        },
+        "laureateService": {
+            "Chemistry": "Chemie",
+            "Literature": "Literatur",
+            "Peace": "Frieden",
+            "Physics": "Physik",
+            "Physiology or Medicine": "Physiologie oder Medizin",
+            "Economic Sciences": "Wirtschaftswissenschaften"
+        },
+        "nResults": "{{ n }} Ergebnisse",
+        "error": "Es ist ein Fehler aufgetreten."
+    },
+    "dialog": {
+        "error": "Es ist ein Fehler aufgetreten...",
+        "searchResult": {
+            "born": "Geboren",
+            "passed": "Verstorben",
+            "bornAndPassed": "Geboren und verstorben"
+        },
+        "deleteAll": "Bist Du Dir sicher, dass Du alle Suchergebnisse löschen möchtest? Dies kann nicht rückgängig gemacht werden.",
+        "deleteOne": "Bist Du Dir sicher, dass Du alle die Ergebnisse für Suche \"{{ uuid }}\" löschen möchtest? Dies kann nicht rückgängig gemacht werden.",
+        "laureate": {
+            "adjusted": "angepasst",
+            "learnMore": "Lerne mehr über {{ name }}:",
+            "laureateOnUrl": "{{ name }} auf {{ platform }}",
+            "prizesErr": "Preisdaten konnten nicht geladen werden. Ursache:"
+        },
+        "info": "Dieses Frontend kann für Anfragen an das beispielhafte Nobelpreisträger:innen-Suchwerkzeug verwendet werden, das im Rahmen einer Masterarbeit implementiert wurde. Der Request wird an den Parallel Run Service gesendet, der als Proxy zu einer synchronen Microservicearchitektur dient und dieselbe Anfrage zugleich an weitere Implementierungen des Tools sendet, um die Performance verschiedener Architekturen im Vergleich evaluieren zu können."
+    },
+    "snackbar": {
+        "geoHash": {
+            "locked": {
+                "child": "\"{{ hash }}\" kann nicht gewählt werden, da ein oder mehr Child-Geohashes, z.B. \"{{ lockReason }}\", ausgewählt sind.",
+                "parent": "\"{{ hash }}\" kann nicht gewählt werden, da ein Parent-Geohash (\"{{ lockReason }}\") ausgewählt ist."
+            },
+            "invalid": "Ungültiger Geohash: {{ hash }}"
+        }
+    },
+    "noResults": {
+        "title": "Keine Ergebnisse",
+        "message1": "Es sind noch keine Ergebnise zu bisherigen Suchen gespeichert.",
+        "message2": "Starte eine Suche über den Button unten rechts!"
+    }
+}

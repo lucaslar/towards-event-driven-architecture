@@ -1,0 +1,10 @@
+<div
+    *ngIf="search.results.length; else noResults"
+    class="d-flex flex-column my-n5"
+>
+    <div class="my-5" *ngFor="let resultGroup of search.results | descDate">
+        <app-result-group [resultGroup]="resultGroup"></app-result-group>
+    </div>
+</div>
+
+<ng-template #noResults> <app-no-results></app-no-results></ng-template>

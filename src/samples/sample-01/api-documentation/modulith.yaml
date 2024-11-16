@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: API documentation (Sample 01/Modulith)
+  version: 1.0-SNAPSHOT
+  description: >
+    <em>
+      Please note that containers are not available from localhost due to their communication via networks.
+      Therefore, the "Try it out button" will not work.
+      If you want to test this tool's functionality, open the web frontend running on
+      <a href="http://localhost:8321" target="_blank">port 8321</a>.
+    </em>
+    <hr />
+    This is the only API specification of sample 01.
+
+tags:
+  - name: Query
+paths:
+  /query/:
+    $ref: './resources/query.yaml#/QueryPath'
+
+components:
+  schemas:
+    Query:
+      $ref: './schemas/query_schema.yaml'
+    Response:
+      $ref: './schemas/query_response_schema.yaml'

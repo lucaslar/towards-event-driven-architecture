@@ -1,0 +1,170 @@
+asyncapi: '2.3.0'
+
+info:
+  title: Laureate Service AMQP API
+  version: '1.0-SNAPSHOT'
+  description: |
+    Check out further documentations of this architecture:
+      - [Query Service (WS)](/query-ws/)
+      - [Query Service (AMQP)](/query-amqp/)
+      - [Prize Service (AMQP)](/prize-amqp/)
+channels:
+  laureate.results:
+    subscribe:
+      summary: Receive data for found laureates.
+      message:
+        $ref: '#/components/messages/laureateResultsData'
+  laureate.failed:
+    subscribe:
+      summary: Receive information about a failed laureate search.
+      message:
+        $ref: '#/components/messages/laureateFailed'
+  query.submitted:
+    publish:
+      summary: Receive validated, accepted queries.
+      message:
+        $ref: '#/components/messages/queryData'
+
+components:
+  messages:
+    laureateResultsData:
+      summary: Results from a Laureate Service
+      payload:
+        $ref: '#/components/schemas/laureateData'
+    queryData:
+      summary: Message including validated query data.
+      description: |
+        This message indicates that a query has been accepted and will be processed further.
+        It includes the query's UUID and timestamp of acceptance.
+      payload:
+        type: object
+        additionalProperties: false
+        properties:
+          uuid:
+            type: string
+            format: uuid
+          timestamp:
+            type: integer
+          queryData:
+            $ref: '#/components/schemas/queryData'
+      examples:
+        - name: Dorothy Hodgkin
+          summary: Validated query
+          payload:
+            {"uuid":"6ade87a2-5596-4a29-8bea-9930d8624590","timestamp":1648312398901,"queryData":{"firstName":"Dorothy","lastName":"Hodgkin","gender":"female","birthDate":{"operator":"eq","date":"1910-05-12"},"deathDate":{"operator":"eq","date":"1994-07-29"},"birthLocation":["stq"],"deathLocation":["gcq"]}}
+    laureateFailed:
+      summary: Information about a failed laureate search.
+      payload:
+        $ref: '#/components/schemas/failedData'
+  schemas:
+    queryData:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        gender:
+          type: string
+          enum: [female, male, divers, org]
+        birthDate:
+          oneOf:
+            - type: object
+              properties:
+                operator:
+                  type: string
+                  enum: [ eq, lt, gt ]
+                date:
+                  type: string
+                  format: date
+            - type: object
+              properties:
+                operator:
+                  type: string
+                  enum: [ eq, lt, gt ]
+                year:
+                  type: number
+                  format: year
+        deathDate:
+          oneOf:
+            - type: object
+              properties:
+                operator:
+                  type: string
+                  enum: [ eq, lt, gt ]
+                date:
+                  type: string
+                  format: date
+            - type: object
+              properties:
+                operator:
+                  type: string
+                  enum: [eq, lt, gt]
+                year:
+                  type: number
+                  format: year
+        birthLocation:
+          type: array
+          items:
+            type: string
+        deathLocation:
+          type: array
+          items:
+            type: string
+    laureateData:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        scope:
+          type: string
+        laureates:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+              givenName:
+                type: string
+              gender:
+                type: string
+                enum: [female, male, divers, org]
+              wikiUrl:
+                type: string
+                format: url
+              laureateUrl:
+                type: string
+                format: url
+              externalUrl:
+                type: string
+                format: url
+              birth:
+                type: string
+                format: date
+              birthYear:
+                type: number
+                format: year
+              death:
+                type: string
+                format: date
+              deathYear:
+                type: number
+                format: year
+              birthLocation:
+                type: string
+              deathLocation:
+                type: string
+    failedData:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        message:
+          type: string
+        scope:
+          type: string

@@ -1,0 +1,17 @@
+<div
+    [class.mat-elevation-z3]="displayShadow"
+    class="title position-relative mx-n4 mt-n4 py-4 background-{{ color }}"
+>
+    <div class="d-flex mx-4">
+        <h1 matDialogTitle class="flex-grow-1 my-auto">
+            {{ titleKey | translate }}
+        </h1>
+        <div class="mx-2 mx-sm-3 mx-md-4 mx-lg-5"></div>
+        <mat-icon class="my-auto" *ngIf="icon"> {{ icon }} </mat-icon>
+        <fa-icon class="my-auto" *ngIf="faIcon" [icon]="faIcon"></fa-icon>
+    </div>
+</div>
+
+<mat-dialog-content class="pt-4" (scroll)="onScroll($event.target!)">
+    <ng-content></ng-content>
+</mat-dialog-content>

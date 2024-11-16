@@ -1,0 +1,31 @@
+LaureatesPath:
+  post:
+    tags:
+      - Search Laureates
+    summary: Search for laureate data (with cleaned/validated search params).
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/query_schema.yaml'
+          examples:
+            Dorothy Hodgkin - Search with all parameters:
+              value:
+                firstName: Dorothy
+                lastName: Hodgkin
+                gender: female
+                birthDate: { operator: "eq", date: "1910-05-12" }
+                deathDate: { operator: "eq", date: "1994-07-29" }
+                birthLocation: [ stq ]
+                deathLocation: [ gcq ]
+
+    responses:
+      '200':
+        description: Found laureates.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/laureate_response_schema.yaml'
+            examples:
+              Dorothy Hodgkin:
+                value: [ { "id": 230,"name": "Hodgkin","givenName": "Dorothy Crowfoot","gender": "female","wikiUrl": "https://en.wikipedia.org/wiki/Dorothy_Hodgkin","laureateUrl": "https://api.nobelprize.org/2/laureate/230","externalUrl": "https://www.nobelprize.org/laureate/230","birth": "1910-05-12","birthYear": 1910,"death": "1994-07-29","deathYear": 1994,"birthLocation": "stq4yv3jjpv4","deathLocation": "gcqb5jbcj4h0","prizes": [ { "category": "Chemistry","laureate": 230,"year": 1964,"prizeAmount": 273000,"prizeAmountAdjusted": 2879320 } ],"prizesErr": null } ]

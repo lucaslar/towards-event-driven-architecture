@@ -1,0 +1,10 @@
+.slide-row {
+    &,
+    * {
+        transition: 0.3s;
+    }
+
+    @media (min-width: 992px) {
+        max-width: 560px;
+    }
+}

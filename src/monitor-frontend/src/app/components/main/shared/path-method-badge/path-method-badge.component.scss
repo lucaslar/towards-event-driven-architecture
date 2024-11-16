@@ -1,0 +1,19 @@
+.method {
+    border-radius: 8px;
+    width: fit-content;
+    background: blue;
+
+    &.get {
+        background: #00a900;
+    }
+    &.post {
+        background: #ff9900;
+    }
+    &.delete {
+        background: darkred;
+    }
+}
+
+.call-count {
+    color: #c8c8c8;
+}

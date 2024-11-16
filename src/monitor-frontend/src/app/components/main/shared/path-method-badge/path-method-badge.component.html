@@ -1,0 +1,12 @@
+<div class="d-flex mx-n2">
+    <div class="method mx-2 py-1 px-2 {{ method | lowercase }}">
+        {{ method | uppercase }}
+    </div>
+    <div class="my-auto mx-2 flex-grow-1">
+        <span class="text-monospace"> {{ path }} </span>
+        <span class="call-count" *ngIf="additionalInformation !== undefined">
+            ({{ additionalInformation }})
+        </span>
+        <mat-divider></mat-divider>
+    </div>
+</div>

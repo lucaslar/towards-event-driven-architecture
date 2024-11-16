@@ -1,0 +1,55 @@
+QueryPath:
+  post:
+    tags:
+      - Query
+    summary: Query laureate data.
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/query_schema.yaml'
+          examples:
+            Dorothy Hodgkin - Search with all parameters:
+              value:
+                firstName: Dorothy
+                lastName: Hodgkin
+                gender: female
+                birthDate: { operator: "eq", date: "1910-05-12" }
+                deathDate: { operator: "eq", date: "1994-07-29" }
+                birthLocation: [ stq ]
+                deathLocation: [ gcq ]
+            Young laureates - Laureates born in 1995 or later (i.e. after 1994):
+              value:
+                birthDate: { operator: "gt", year: 1994 }
+            Alber eins - Search with partial strings:
+              value:
+                firstName: 'Alber'
+                lastName: 'eins'
+            Berliners - All laureates born and passed in 'u33' (geo hash):
+              value:
+                birthLocation: [ 'u33' ]
+                deathLocation: [ 'u33' ]
+
+    responses:
+      '400':
+        description: Invalid query.
+        content:
+          text/plain:
+            schema:
+              type: string
+              enum: [ "Invalid query" ]
+      '200':
+        description: Laureates grouped by categories.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/query_response_schema.yaml'
+            examples:
+              Dorothy Hodgkin:
+                value: { "uuid": "6ade87a2-5596-4a29-8bea-9930d8624590","timestamp": 1648312398901,"queryData": { "firstName": "Dorothy","lastName": "Hodgkin","gender": "female","birthDate": { "operator": "eq","date": "1910-05-12" },"deathDate": { "operator": "eq","date": "1994-07-29" },"birthLocation": [ "stq" ],"deathLocation": [ "gcq" ] },"serviceResults": [ { "service": "Chemistry","results": [ { "id": 230,"name": "Hodgkin","givenName": "Dorothy Crowfoot","gender": "female","wikiUrl": "https://en.wikipedia.org/wiki/Dorothy_Hodgkin","laureateUrl": "https://api.nobelprize.org/2/laureate/230","externalUrl": "https://www.nobelprize.org/laureate/230","birth": "1910-05-12","birthYear": 1910,"death": "1994-07-29","deathYear": 1994,"birthLocation": "stq4yv3jjpv4","deathLocation": "gcqb5jbcj4h0","prizes": [ { "category": "Chemistry","laureate": 230,"year": 1964,"prizeAmount": 273000,"prizeAmountAdjusted": 2879320 } ],"prizesErr": null } ],"error": null },{ "service": "Literature","results": [ ],"error": null },{ "service": "Peace","results": [ ],"error": null },{ "service": "Physics","results": [ ],"error": null },{ "service": "Physiology or Medicine","results": [ ],"error": null },{ "service": "Economic Sciences","results": [ ],"error": null } ] }
+              Young laureates:
+                value: { "uuid": "3c9788ce-98a9-41c5-a8e8-0345d723ead5","timestamp": 1648312460472,"queryData": { "birthDate": { "operator": "gt","year": 1994 } },"serviceResults": [ { "service": "Chemistry","results": [ ],"error": null },{ "service": "Literature","results": [ ],"error": null },{ "service": "Peace","results": [ { "id": 893,"name": "Organisation for the Prohibition of Chemical Weapons","givenName": null,"gender": "org","wikiUrl": "https://en.wikipedia.org/wiki/Organisation_for_the_Prohibition_of_Chemical_Weapons","laureateUrl": "https://api.nobelprize.org/2/laureate/893","externalUrl": "https://www.nobelprize.org/laureate/893","birth": null,"birthYear": 1997,"death": null,"deathYear": null,"birthLocation": null,"deathLocation": null,"prizes": [ { "category": "Peace","laureate": 893,"year": 2013,"prizeAmount": 8000000,"prizeAmountAdjusted": 8517568 } ],"prizesErr": null },{ "id": 914,"name": "Yousafzai","givenName": "Malala","gender": "female","wikiUrl": "https://en.wikipedia.org/wiki/Malala_Yousafzai","laureateUrl": "https://api.nobelprize.org/2/laureate/914","externalUrl": "https://www.nobelprize.org/laureate/914","birth": "1997-07-12","birthYear": 1997,"death": null,"deathYear": null,"birthLocation": "tw5myc3553k7","deathLocation": null,"prizes": [ { "category": "Peace","laureate": 914,"year": 2014,"prizeAmount": 8000000,"prizeAmountAdjusted": 8531844 } ],"prizesErr": null },{ "id": 948,"name": "International Campaign to Abolish Nuclear Weapons","givenName": null,"gender": "org","wikiUrl": "https://en.wikipedia.org/wiki/International_Campaign_to_Abolish_Nuclear_Weapons","laureateUrl": "https://api.nobelprize.org/2/laureate/948","externalUrl": "https://www.nobelprize.org/laureate/948","birth": null,"birthYear": 2007,"death": null,"deathYear": null,"birthLocation": null,"deathLocation": null,"prizes": [ { "category": "Peace","laureate": 948,"year": 2017,"prizeAmount": 9000000,"prizeAmountAdjusted": 9342577 } ],"prizesErr": null } ],"error": null },{ "service": "Physics","results": [ ],"error": null },{ "service": "Physiology or Medicine","results": [ ],"error": null },{ "service": "Economic Sciences","results": [ ],"error": null } ] }
+              Alber eins:
+                value: { "uuid": "5d07b458-520b-49e0-b28a-36a4ad780ccf","timestamp": 1648312496057,"queryData": { "firstName": "Alber","lastName": "eins" },"serviceResults": [ { "service": "Chemistry","results": [ ],"error": null },{ "service": "Literature","results": [ ],"error": null },{ "service": "Peace","results": [ ],"error": null },{ "service": "Physics","results": [ { "id": 26,"name": "Einstein","givenName": "Albert","gender": "male","wikiUrl": "https://en.wikipedia.org/wiki/Albert_Einstein","laureateUrl": "https://api.nobelprize.org/2/laureate/26","externalUrl": "https://www.nobelprize.org/laureate/26","birth": "1879-03-14","birthYear": 1879,"death": "1955-04-18","deathYear": 1955,"birthLocation": "u0x576kzrck4","deathLocation": "dr4vschn5duk","prizes": [ { "category": "Physics","laureate": 26,"year": 1921,"prizeAmount": 121573,"prizeAmountAdjusted": 2578698 } ],"prizesErr": null } ],"error": null },{ "service": "Physiology or Medicine","results": [ ],"error": null },{ "service": "Economic Sciences","results": [ ],"error": null } ] }
+              Berliners:
+                value: { "uuid": "4423233d-5b5e-434e-934c-531c0ecb74c6","timestamp": 1648312521839,"queryData": { "birthLocation": [ "u33" ],"deathLocation": [ "u33" ] },"serviceResults": [ { "service": "Chemistry","results": [ ],"error": null },{ "service": "Literature","results": [ ],"error": null },{ "service": "Peace","results": [ { "id": 491,"name": "Stresemann","givenName": "Gustav","gender": "male","wikiUrl": "https://en.wikipedia.org/wiki/Gustav_Stresemann","laureateUrl": "https://api.nobelprize.org/2/laureate/491","externalUrl": "https://www.nobelprize.org/laureate/491","birth": "1878-05-10","birthYear": 1878,"death": "1929-10-03","deathYear": 1929,"birthLocation": "u33db8mmzj1t","deathLocation": "u33db8mmzj1t","prizes": [ { "category": "Peace","laureate": 491,"year": 1926,"prizeAmount": 116960,"prizeAmountAdjusted": 3332487 } ],"prizesErr": null } ],"error": null },{ "service": "Physics","results": [ ],"error": null },{ "service": "Physiology or Medicine","results": [ ],"error": null },{ "service": "Economic Sciences","results": [ ],"error": null } ] }

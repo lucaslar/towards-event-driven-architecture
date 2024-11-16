@@ -1,0 +1,9 @@
+<app-dialog titleKey="dialog.error" icon="error_outline" color="warn">
+    <pre class="error-message">{{ errorMessage }}</pre>
+</app-dialog>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="" color="warn">
+        {{ 'general.close' | translate }}
+    </button>
+</mat-dialog-actions>

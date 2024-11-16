@@ -1,0 +1,21 @@
+<mat-divider
+    [@openClose]="display ? 'closed' : 'open'"
+    class="position-relative"
+></mat-divider>
+<div class="d-flex flex-column mb-3">
+    <mat-card [@openClose]="display ? 'open' : 'closed'">
+        <div class="d-flex mx-n2">
+            <mat-icon class="mx-2">list_alt</mat-icon>
+            <h3 class="mx-2 my-auto">
+                {{ 'searchResult.queryDetails.title' | translate }}
+            </h3>
+        </div>
+        <mat-divider class="position-relative my-2"></mat-divider>
+        <div class="d-flex mx-n2">
+            <mat-icon class="mx-2">fingerprint</mat-icon>
+            <pre class="mx-2 my-auto">{{ uuid }}</pre>
+        </div>
+        <mat-divider class="position-relative my-2"></mat-divider>
+        <pre class="m-0">{{ data | json }}</pre>
+    </mat-card>
+</div>

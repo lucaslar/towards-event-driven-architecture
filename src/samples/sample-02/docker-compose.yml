@@ -1,0 +1,145 @@
+version: "3.8"
+services:
+  database:
+    container_name: teda_s02_database
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./database/data:/data
+      - ./database/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s02_default
+
+  service_prize:
+    container_name: teda_s02_service_prizes
+    depends_on:
+      - database
+    image: towardseda/sharedimgs-rest/prize-service
+    environment:
+      - PG_HOST=teda_s02_database
+    networks:
+      - towardseda_s02_default
+
+  service_laureates_chemistry:
+    container_name: teda_s02_service_laureates_chemistry
+    depends_on:
+      - database
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-02
+    environment:
+      - PG_HOST=teda_s02_database
+      - SCOPE=Chemistry
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=2
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=1
+      - PRIZE_SERVICE_HOST=teda_s02_service_prizes
+    networks:
+      - towardseda_s02_default
+
+  service_laureates_literature:
+    container_name: teda_s02_service_laureates_literature
+    depends_on:
+      - database
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-02
+    environment:
+      - PG_HOST=teda_s02_database
+      - SCOPE=Literature
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=2
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=2
+      - PRIZE_SERVICE_HOST=teda_s02_service_prizes
+    networks:
+      - towardseda_s02_default
+
+  service_laureates_peace:
+    container_name: teda_s02_service_laureates_peace
+    depends_on:
+      - database
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-02
+    environment:
+      - PG_HOST=teda_s02_database
+      - SCOPE=Peace
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=2
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=3
+      - PRIZE_SERVICE_HOST=teda_s02_service_prizes
+    networks:
+      - towardseda_s02_default
+
+  service_laureates_physics:
+    container_name: teda_s02_service_laureates_physics
+    depends_on:
+      - database
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-02
+    environment:
+      - PG_HOST=teda_s02_database
+      - SCOPE=Physics
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=2
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=4
+      - PRIZE_SERVICE_HOST=teda_s02_service_prizes
+    networks:
+      - towardseda_s02_default
+
+  service_laureates_medicine:
+    container_name: teda_s02_service_laureates_medicine
+    depends_on:
+      - database
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-02
+    environment:
+      - PG_HOST=teda_s02_database
+      - SCOPE=Physiology or Medicine
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=2
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=5
+      - PRIZE_SERVICE_HOST=teda_s02_service_prizes
+    networks:
+      - towardseda_s02_default
+
+  service_laureates_economics:
+    container_name: teda_s02_service_laureates_economics
+    depends_on:
+      - database
+      - service_prize
+    image: towardseda/sharedimgs-rest/laureate-service-02
+    environment:
+      - PG_HOST=teda_s02_database
+      - SCOPE=Economic Sciences
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=2
+      - SIMULATED_BEHAVIOUR_SERVICE_INDEX=6
+      - PRIZE_SERVICE_HOST=teda_s02_service_prizes
+    networks:
+      - towardseda_s02_default
+
+  service_query:
+    container_name: teda_s02_service_query
+    depends_on:
+      - service_laureates_chemistry
+      - service_laureates_literature
+      - service_laureates_peace
+      - service_laureates_physics
+      - service_laureates_medicine
+      - service_laureates_economics
+    image: towardseda/sharedimgs-rest/query-service
+    volumes:
+      - ./query-service-config.json:/application/config.json
+    networks:
+      - towardseda_s02_default
+      - towardseda_shared_to_samples
+
+  api_documentation:
+    image: swaggerapi/swagger-ui
+    container_name: teda_s02_api-documentation
+    volumes:
+      - ./api-documentation:/usr/share/nginx/html/doc
+    ports:
+      - '8102:8080'
+    environment:
+      - API_URL=doc/query-service.yaml
+
+networks:
+  towardseda_s02_default:
+  towardseda_shared_to_samples:
+    external: true

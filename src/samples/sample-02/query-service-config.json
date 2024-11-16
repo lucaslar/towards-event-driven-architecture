@@ -1,0 +1,28 @@
+{
+  "laureateServices": [
+    {
+      "scope": "Chemistry",
+      "host": "teda_s02_service_laureates_chemistry"
+    },
+    {
+      "scope": "Literature",
+      "host": "teda_s02_service_laureates_literature"
+    },
+    {
+      "scope": "Peace",
+      "host": "teda_s02_service_laureates_peace"
+    },
+    {
+      "scope": "Physics",
+      "host": "teda_s02_service_laureates_physics"
+    },
+    {
+      "scope": "Physiology or Medicine",
+      "host": "teda_s02_service_laureates_medicine"
+    },
+    {
+      "scope": "Economic Sciences",
+      "host": "teda_s02_service_laureates_economics"
+    }
+  ]
+}

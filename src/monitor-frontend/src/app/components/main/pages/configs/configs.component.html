@@ -1,0 +1,18 @@
+<app-page-title title="main.config.title" icon="settings"></app-page-title>
+
+<div
+    class="m-n1 m-md-n2 row"
+    *ngIf="
+        statistics.isConnected && statistics.configData as configData;
+        else noData
+    "
+>
+    <div
+        class="col-12 col-md-6 col-lg-4 col-xl-3 p-1 p-md-2"
+        *ngFor="let config of configData"
+    >
+        <app-config-card [config]="config"></app-config-card>
+    </div>
+</div>
+
+<ng-template #noData> <app-no-data></app-no-data></ng-template>

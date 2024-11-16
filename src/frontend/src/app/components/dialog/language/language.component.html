@@ -1,0 +1,25 @@
+<app-dialog titleKey="action.language" icon="language">
+    <div
+        *ngFor="let language of i18n.supportedLanguages"
+        [mat-dialog-close]="language"
+        [class.selected]="i18n.currentLanguageIso === language.iso"
+        class="d-flex language mx-n2"
+        mat-ripple
+    >
+        <div
+            class="mat-elevation-z3 flag-icon-background m-2 fi fis fi-{{
+                language.flagIso ? language.flagIso : language.iso
+            }}"
+        ></div>
+        <div class="my-auto name flex-grow-1">
+            {{ language.name }}
+        </div>
+        <mat-icon class="my-auto m-2" color="primary">
+            {{
+                i18n.currentLanguageIso === language.iso
+                    ? 'check_circle'
+                    : 'panorama_fish_eye'
+            }}
+        </mat-icon>
+    </div>
+</app-dialog>

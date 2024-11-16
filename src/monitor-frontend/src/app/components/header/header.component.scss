@@ -1,0 +1,31 @@
+mat-toolbar {
+    background: rgba(25, 25, 25, 0.95);
+    transition: 0.3s box-shadow;
+
+    mat-toolbar-row {
+        height: unset;
+        transition: 0.3s padding;
+
+        .title,
+        .subtitle {
+            width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .subtitle {
+            color: #c8c8c8;
+            line-height: 16px;
+            font-size: 14px;
+        }
+    }
+
+    @supports (
+        (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))
+    ) {
+        background: rgba(48, 48, 48, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}

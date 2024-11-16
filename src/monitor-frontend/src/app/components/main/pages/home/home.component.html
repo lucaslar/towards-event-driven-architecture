@@ -1,0 +1,48 @@
+<div class="h-100 w-100 d-flex flex-column">
+    <div class="m-auto icons-wrapper p-2 flex-column position-relative">
+        <div>
+            <button
+                mat-icon-button
+                routerLink="/services"
+                (mouseover)="hovered = 'arrow_back'"
+                (mouseleave)="hovered = undefined"
+                [matTooltip]="'main.config.title' | translate"
+                matTooltipPosition="above"
+            >
+                <mat-icon> settings </mat-icon>
+            </button>
+            <button
+                mat-icon-button
+                routerLink="/recent-runs"
+                (mouseover)="hovered = 'arrow_downward'"
+                (mouseleave)="hovered = undefined"
+                [matTooltip]="'main.history.title' | translate"
+                matTooltipPosition="above"
+            >
+                <mat-icon> history </mat-icon>
+            </button>
+            <button
+                mat-icon-button
+                routerLink="/performance-stats"
+                (mouseover)="hovered = 'arrow_forward'"
+                (mouseleave)="hovered = undefined"
+                [matTooltip]="'main.statistics.title' | translate"
+                matTooltipPosition="above"
+            >
+                <mat-icon> bar_chart </mat-icon>
+            </button>
+        </div>
+        <div class="position-absolute w-100 mx-n2 mt-4 d-flex">
+            <div
+                class="tec-info mx-auto d-flex p-2"
+                [class.visible]="!!hovered"
+            >
+                <mat-icon class="my-auto"> keyboard_command_key </mat-icon>
+                <span class="my-auto mx-1 grey"> + </span>
+                <mat-icon class="my-auto"> keyboard_control_key </mat-icon>
+                <span class="my-auto mx-1 grey"> + </span>
+                <mat-icon class="my-auto"> {{ hovered }} </mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

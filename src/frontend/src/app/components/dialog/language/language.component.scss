@@ -1,0 +1,18 @@
+.language {
+    cursor: pointer;
+
+    .name {
+        transition: 0.3s;
+        width: 0;
+
+        @media (min-width: 576px) {
+            width: 320px;
+        }
+    }
+
+    .flag-icon-background {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+}

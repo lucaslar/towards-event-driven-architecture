@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{ 'main.history.dialog.title' | translate }}</h1>
+<mat-dialog-content>
+    <pre>{{ data | json }}</pre>
+</mat-dialog-content>
+<mat-dialog-actions class="d-flex">
+    <button class="ml-auto" mat-button matDialogClose="">
+        {{ 'general.close' | translate }}
+    </button>
+</mat-dialog-actions>

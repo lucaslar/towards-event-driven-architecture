@@ -1,0 +1,83 @@
+@import 'theme';
+@import 'variables';
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.color-primary {
+    color: mat-color($primary-palette) !important;
+}
+
+.background-primary {
+    background: mat-color($primary-palette) !important;
+    color: mat-color($primary-palette, default-contrast) !important;
+}
+
+.color-warn {
+    color: mat-color($warn-palette) !important;
+}
+
+.background-warn {
+    background: mat-color($warn-palette) !important;
+    color: mat-color($warn-palette, default-contrast) !important;
+}
+
+.color-accent {
+    color: mat-color($accent-palette) !important;
+}
+
+.background-accent {
+    background: mat-color($accent-palette) !important;
+    color: mat-color($accent-palette, default-contrast) !important;
+}
+
+.fill-color-accent svg {
+    fill: mat-color($accent-palette) !important;
+}
+
+.fill-color-primary svg {
+    fill: mat-color($primary-palette) !important;
+}
+
+.click-through {
+    &,
+    * {
+        pointer-events: none !important;
+    }
+
+    .label {
+        background: black;
+        color: white;
+        border-radius: 24px;
+        opacity: 0.5;
+        width: fit-content;
+        padding: 2px 8px;
+    }
+}
+
+.no-child-padding > * {
+    padding: 0 !important;
+}
+
+.no-min-size-input .mat-form-field-infix {
+    width: 0 !important;
+}
+
+.map {
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    height: 350px;
+
+    @media (max-height: 1000px) {
+        max-height: 30vh;
+        @media (max-height: 700px) {
+            max-height: 25vh
+        }
+    }
+}

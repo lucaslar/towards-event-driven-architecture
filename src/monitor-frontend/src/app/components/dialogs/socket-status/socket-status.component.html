@@ -1,0 +1,25 @@
+<mat-dialog-content>
+    <div
+        class="socket-status status-wrapper d-flex p-2 mx-n1 {{
+            statistics.isConnected ? 'background-accent' : 'background-warn'
+        }}"
+    >
+        <mat-icon class="mx-1 my-auto">
+            {{ statistics.isConnected ? 'wifi' : 'wifi_off' }}
+        </mat-icon>
+        <span class="mx-1 my-auto">
+            {{
+                (statistics.isConnected
+                    ? 'general.socket.connected'
+                    : 'general.socket.notConnected'
+                ) | translate
+            }}
+        </span>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-dialog-close="" mat-button class="ml-auto">
+        {{ 'general.close' | translate }}
+    </button>
+</mat-dialog-actions>

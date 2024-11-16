@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  database:
+    container_name: teda_s01_database
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    volumes:
+      - ./database/data:/data
+      - ./database/scripts:/docker-entrypoint-initdb.d
+    networks:
+      - towardseda_s01_default
+
+  modulith:
+    container_name: teda_s01_modulith
+    depends_on:
+      - database
+    build:
+      context: services/modulith
+      args:
+        - MAIN_MODULE=config.rest
+    environment:
+      - PG_HOST=teda_s01_database
+      - SIMULATED_BEHAVIOUR_SAMPLE_INDEX=1
+    networks:
+      - towardseda_shared_to_samples
+      - towardseda_s01_default
+
+  api_documentation:
+    image: swaggerapi/swagger-ui
+    container_name: teda_s01_api-documentation
+    volumes:
+      - ./api-documentation:/usr/share/nginx/html/doc
+    ports:
+      - '8101:8080'
+    environment:
+      - API_URL=doc/modulith.yaml
+
+networks:
+  towardseda_s01_default:
+  towardseda_shared_to_samples:
+    external: true

@@ -1,0 +1,12 @@
+<app-dialog titleKey="action.deleteAll" icon="delete_forever" color="warn">
+    <p>{{ 'dialog.deleteAll' | translate }}</p>
+</app-dialog>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="">
+        {{ 'general.close' | translate }}
+    </button>
+    <button mat-flat-button [mat-dialog-close]="true" color="warn">
+        {{ 'general.confirm' | translate }}
+    </button>
+</mat-dialog-actions>

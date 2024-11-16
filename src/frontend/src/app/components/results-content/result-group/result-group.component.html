@@ -1,0 +1,48 @@
+<div class="container-fluid p-0">
+    <div class="d-flex my-1">
+        <h3 class="my-auto flex-grow-1">
+            {{ resultGroup.timestamp | date: 'medium' }}
+        </h3>
+        <button
+            mat-button
+            color="primary"
+            class="my-auto"
+            (click)="displaySearchData = !displaySearchData"
+            [matTooltip]="
+                'searchResult.queryDetails.' +
+                    (displaySearchData ? 'hide' : 'show') | translate
+            "
+        >
+            {{ 'searchResult.queryDetails.title' | translate }}
+            <mat-icon [class.rotate-180]="displaySearchData" class="rotate">
+                expand_more
+            </mat-icon>
+        </button>
+        <button
+            mat-icon-button
+            color="warn"
+            class="my-auto"
+            [matTooltip]="'searchResult.delete' | translate"
+            (click)="removeQueryResult(resultGroup.uuid)"
+        >
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+
+    <app-search-data-card
+        [uuid]="resultGroup.uuid"
+        [data]="resultGroup.queryData"
+        [display]="displaySearchData"
+    ></app-search-data-card>
+
+    <div class="row m-n2">
+        <div
+            *ngFor="let serviceResult of resultGroup.serviceResults"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2"
+        >
+            <app-service-result-card
+                [serviceResult]="serviceResult"
+            ></app-service-result-card>
+        </div>
+    </div>
+</div>

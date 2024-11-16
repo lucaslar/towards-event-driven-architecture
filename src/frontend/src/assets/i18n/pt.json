@@ -1,0 +1,100 @@
+{
+    "app": {
+        "title": "Ferramenta de Pesquisa de Titulares do Prêmio Nobel",
+        "subtitle": "Towards EDA - HTW Berlin, 2022"
+    },
+    "general": {
+        "close": "Fechar",
+        "confirm": "Confirmar",
+        "delete": "Apagar",
+        "next": "Seguinte",
+        "previous": "Anterior",
+        "reset": "Redefinir",
+        "gender": {
+            "female": "Feminino",
+            "male": "Masculino",
+            "divers": "X",
+            "org": "Organização"
+        }
+    },
+    "action": {
+        "info": "Informação",
+        "language": "Seleção de idioma",
+        "search": "Pesquisa",
+        "deleteAll": "Apagar todos os resultados"
+    },
+    "searchForm": {
+        "title": {
+            "personal": "Dados pessoais",
+            "birthDate": "Data de nascimento",
+            "birthLocation": "Local de nascimento",
+            "deathDate": "Data do óbito",
+            "deathLocation": "Lugar do óbito"
+        },
+        "field": {
+            "firstName": "Primeiro nome",
+            "lastName": "Sobrenome (ou organização)",
+            "gender": "Género",
+            "date": {
+                "yearOnly": "Somente ano",
+                "date": "Data",
+                "year": "Ano",
+                "operator": {
+                    "label": "Operador",
+                    "eq": "Igual",
+                    "lt": "Menor que",
+                    "gt": "Maior que"
+                }
+            }
+        }
+    },
+    "searchResult": {
+        "delete": "Apagar resultados",
+        "queryDetails": {
+            "title": "Detalhes da consulta",
+            "hide": "Ocultar detalhes da consulta",
+            "show": "Mostrar detalhes da consulta"
+        },
+        "laureateService": {
+            "Chemistry": "Química",
+            "Literature": "Literatura",
+            "Peace": "Paz",
+            "Physics": "Física",
+            "Physiology or Medicine": "Fisiologia ou Medicina",
+            "Economic Sciences": "Ciências Económicas"
+        },
+        "nResults": "{{ n }} resultados",
+        "error": "Um erro ocorreu."
+    },
+    "dialog": {
+        "error": "Um erro ocorreu...",
+        "searchResult": {
+            "born": "Nascidx",
+            "passed": "Falecidx",
+            "bornAndPassed": "Nascidx e falecidx"
+        },
+        "deleteAll": "Você tem certeza de que deseja apagar todos os resultados de pesquisa? Isto não pode ser desfeito.",
+        "deleteOne": "Você tem certeza de que quer apagar os resultados da pesquisa \"{{ uuid }}\"? Isto não pode ser desfeito.",
+        "laureate": {
+            "adjusted": "ajustado",
+            "learnMore": "Aprenda mais sobre {{ name }}:",
+            "laureateOnUrl": "{{ name }} em {{ platform }}",
+            "prizesErr": "Dados de prêmios não puderam ser carregados. Razão:"
+        },
+        "info": "Este frontend pode ser usado para consultas a exemplar Ferramenta de Pesquisa de Titulares do Prêmio Nobel, que foi implementada como parte de uma tese de mestrado. A consulta é enviada ao Parallel Run Service, que serve como proxy para uma arquitetura síncrona de microserviços e envia a mesma consulta para outras implementações da ferramenta ao mesmo tempo, a fim de poder avaliar o desempenho de diferentes arquiteturas em comparação."
+    },
+    "snackbar": {
+        "geoHash": {
+            "locked": {
+                "child": "\"{{ hash }}\" não pode ser desmarcado porque um ou mais child geohashes, e. \"{{ lockReason }}\", estan selecionados.",
+                "parent": "\"{{ hash }}\" não pode ser desmarcado porque um parent geohash (\"{{ lockReason }}\") esta selecionado."
+            },
+            "invalid": "Geohash inválido: {{ hash }}"
+        }
+    },
+    "noResults": {
+        "title": "Nenhum resultado",
+        "message1": "Não há resultados armazenados de pesquisas anteriores.",
+        "message2": "Inicie uma pesquisa usando o botão no canto inferior direito!"
+    }
+}

@@ -1,0 +1,15 @@
+type: array
+items:
+  type: object
+  properties:
+    category:
+      type: string
+    laureate:
+      type: int
+    year:
+      type: number
+      format: year
+    prizeAmount:
+      type: int
+    prizeAmountAdjusted:
+      type: int

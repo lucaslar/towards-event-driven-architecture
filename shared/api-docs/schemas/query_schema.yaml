@@ -1,0 +1,53 @@
+type: object
+properties:
+  firstName:
+    type: string
+  lastName:
+    type: string
+  gender:
+    type: string
+    enum: [female, male, divers, org]
+  birthDate:
+    oneOf:
+      - type: object
+        properties:
+          operator:
+            type: string
+            enum: [ eq, lt, gt ]
+          date:
+            type: string
+            format: date
+      - type: object
+        properties:
+          operator:
+            type: string
+            enum: [ eq, lt, gt ]
+          year:
+            type: number
+            format: year
+  deathDate:
+    oneOf:
+      - type: object
+        properties:
+          operator:
+            type: string
+            enum: [ eq, lt, gt ]
+          date:
+            type: string
+            format: date
+      - type: object
+        properties:
+          operator:
+            type: string
+            enum: [eq, lt, gt]
+          year:
+            type: number
+            format: year
+  birthLocation:
+    type: array
+    items:
+      type: string
+  deathLocation:
+    type: array
+    items:
+      type: string

@@ -1,0 +1,13 @@
+<app-dialog
+    [titleKey]="'searchResult.laureateService.' + service"
+    [faIcon]="icon"
+    color="warn"
+>
+    <pre>{{ error }}</pre>
+</app-dialog>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="" color="warn">
+        {{ 'general.close' | translate }}
+    </button>
+</mat-dialog-actions>

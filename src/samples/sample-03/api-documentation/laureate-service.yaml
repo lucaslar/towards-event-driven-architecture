@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: API documentation (Sample 03/Laurete Service)
+  version: 1.0-SNAPSHOT
+  description: >
+    <em>
+      Please note that containers are not available from localhost due to their communication via networks.
+      Therefore, the "Try it out button" will not work.
+      If you want to test this tool's functionality, open the web frontend running on
+      <a href="http://localhost:8321" target="_blank">port 8321</a>.
+    </em>
+    <hr />
+    Check out further documentations of this architecture (switch using the "Explore" bar):
+    <ul>
+      <li>
+        <strong>Query Service</strong>
+        <pre>doc/query-service.yaml</pre></li>
+      </li>
+      <li>
+        <strong>Prize Service:</strong>
+        <pre>doc/prize-service.yaml</pre></li>
+      </li>
+    </ul>
+
+tags:
+  - name: Search
+paths:
+  /search/:
+    $ref: './resources/laureate.yaml#/LaureatesPath'
+
+components:
+  schemas:
+    Search data:
+      $ref: './schemas/query_schema.yaml'
+    Response:
+      $ref: './schemas/laureate_response_schema.yaml'

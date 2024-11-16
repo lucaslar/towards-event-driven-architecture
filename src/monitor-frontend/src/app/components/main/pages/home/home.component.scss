@@ -1,0 +1,32 @@
+@import '../../../../../variables';
+
+.icons-wrapper {
+    border: 2px solid white;
+    border-radius: 200px;
+
+    button {
+        transition: 0.3s;
+        height: 56px;
+        width: 56px;
+
+        mat-icon {
+            height: 40px;
+            width: 40px;
+            font-size: 40px;
+            line-height: 40px;
+        }
+
+        &:hover {
+            color: mat-color($primary-palette) !important;
+        }
+    }
+
+    .tec-info {
+        transition: 0.3s opacity;
+        opacity: 0;
+
+        &.visible {
+            opacity: 1;
+        }
+    }
+}

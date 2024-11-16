@@ -1,0 +1,19 @@
+type: object
+properties:
+  uuid:
+    type: string
+  timestamp:
+    type: int
+  queryData:
+    $ref: './query_schema.yaml'
+  serviceResults:
+    type: array
+    items:
+      type: object
+      properties:
+        service:
+          type: string
+        error:
+          type: string
+        results:
+          $ref: './laureate_response_schema.yaml'

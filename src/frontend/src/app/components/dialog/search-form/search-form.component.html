@@ -1,0 +1,190 @@
+<app-dialog titleKey="action.search" icon="manage_search">
+    <div class="my-2">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="step === 0" (opened)="step = 0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <fa-icon class="mr-2" [icon]="personalIcon"></fa-icon>
+                        {{ 'searchForm.title.personal' | translate }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="row">
+                    <mat-form-field
+                        appearance="outline"
+                        class="col-sm-12 col-md-6 col-xl-4"
+                    >
+                        <mat-label>
+                            {{ 'searchForm.field.firstName' | translate }}
+                        </mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="firstname"
+                            [(ngModel)]="firstName"
+                            (ngModelChange)="firstName = firstName?.trim()"
+                        />
+                    </mat-form-field>
+                    <mat-form-field
+                        appearance="outline"
+                        class="col-sm-12 col-md-6 col-xl-4"
+                    >
+                        <mat-label>
+                            {{ 'searchForm.field.lastName' | translate }}
+                        </mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="lastname"
+                            [(ngModel)]="lastName"
+                            (ngModelChange)="lastName = lastName?.trim()"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        class="col-sm-12 col-md-6 col-xl-4"
+                    >
+                        <mat-label>
+                            {{ 'searchForm.field.gender' | translate }}
+                        </mat-label>
+                        <mat-select [(ngModel)]="gender" [name]="'gender'">
+                            <mat-select-trigger>
+                                <ng-container *ngIf="gender; else noSelection">
+                                    <mat-icon class="position-absolute mt-n1">
+                                        {{ genderIcons[gender] }}
+                                    </mat-icon>
+                                    <span class="ml-4 pl-2">
+                                        {{
+                                            'general.gender.' + gender
+                                                | translate
+                                        }}
+                                    </span>
+                                </ng-container>
+                                <ng-template #noSelection>-</ng-template>
+                            </mat-select-trigger>
+                            <mat-option>-</mat-option>
+                            <mat-option
+                                *ngFor="let g of genderValues"
+                                [value]="g"
+                            >
+                                <mat-icon> {{ genderIcons[g] }}</mat-icon>
+                                {{ 'general.gender.' + g | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <mat-action-row>
+                    <button mat-button color="primary" (click)="step = 1">
+                        {{ 'general.next' | translate }}
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 1" (opened)="step = 1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <fa-icon class="mr-2" [icon]="birthIcon"></fa-icon>
+                        {{ 'searchForm.title.birthDate' | translate }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <app-date-fields [(dateFields)]="birthDate"></app-date-fields>
+
+                <mat-action-row>
+                    <button mat-button (click)="step = 0">
+                        {{ 'general.previous' | translate }}
+                    </button>
+                    <button mat-button color="primary" (click)="step = 2">
+                        {{ 'general.next' | translate }}
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 2" (opened)="step = 2">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <fa-icon class="mr-2" [icon]="deathIcon"></fa-icon>
+                        {{ 'searchForm.title.deathDate' | translate }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <app-date-fields [(dateFields)]="deathDate"></app-date-fields>
+
+                <mat-action-row>
+                    <button mat-button (click)="step = 1">
+                        {{ 'general.previous' | translate }}
+                    </button>
+                    <button mat-button color="primary" (click)="step = 3">
+                        {{ 'general.next' | translate }}
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 3" (opened)="step = 3">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <fa-icon
+                            class="mr-2"
+                            [icon]="birthLocationIcon"
+                        ></fa-icon>
+                        {{ 'searchForm.title.birthLocation' | translate }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <app-geo-search
+                    [(selection)]="birthLocation"
+                    (selectionChange)="changeDetector.detectChanges()"
+                ></app-geo-search>
+
+                <mat-action-row>
+                    <button mat-button (click)="step = 2">
+                        {{ 'general.previous' | translate }}
+                    </button>
+                    <button mat-button color="primary" (click)="step = 4">
+                        {{ 'general.next' | translate }}
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 4" (opened)="step = 4">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <fa-icon
+                            class="mr-2"
+                            [icon]="deathLocationIcon"
+                        ></fa-icon>
+                        {{ 'searchForm.title.deathLocation' | translate }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <app-geo-search
+                    [(selection)]="deathLocation"
+                    (selectionChange)="changeDetector.detectChanges()"
+                ></app-geo-search>
+
+                <mat-action-row>
+                    <button mat-button (click)="step = 3">
+                        {{ 'general.previous' | translate }}
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</app-dialog>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="">
+        {{ 'general.close' | translate }}
+    </button>
+    <button
+        mat-flat-button
+        [mat-dialog-close]="formData"
+        color="primary"
+        [disabled]="isEmptyForm"
+    >
+        <mat-icon>search</mat-icon>
+        {{ 'action.search' | translate }}
+    </button>
+</mat-dialog-actions>

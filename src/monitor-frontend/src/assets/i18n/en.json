@@ -1,0 +1,83 @@
+{
+    "app": {
+        "title": "Parallel Run Monitor",
+        "subtitle": "Towards EDA - HTW Berlin, 2022"
+    },
+    "header": {
+        "actions": {
+            "info": "Information",
+            "home": "Home"
+        }
+    },
+    "dialog": {
+        "info": "This frontend serves as a dashboard for monitoring the Parallel Run Service which evaluates how different architectures perform in comparison."
+    },
+    "general": {
+        "noData": "No data to display",
+        "close": "Close",
+        "socket": {
+            "connected": "Socket: connected",
+            "notConnected": "Socket: not connected"
+        }
+    },
+    "main": {
+        "config": {
+            "title": "Service Configurations",
+            "icon": {
+                "async": "Asynchronous configuration",
+                "sync": "Synchronous configuration",
+                "verified": "Source of truth",
+                "notVerified": "Not source of truth"
+            }
+        },
+        "history": {
+            "title": "Recent Runs",
+            "runConfig": "Run Configuration",
+            "ignored": "Ignored",
+            "viewResults": "View results",
+            "dialog": {
+                "title": "Response data"
+            }
+        },
+        "statistics": {
+            "title": "Performance Statistics",
+            "chart": {
+                "sizing": {
+                    "larger": "Larger",
+                    "smaller": "Smaller"
+                },
+                "title": {
+                    "avgLatencies": "Average Latencies in Milliseconds",
+                    "timeLatencies": "Latencies in Milliseconds",
+                    "avgNotRejected": "Average not Rejected Requests",
+                    "timeRejected": "Accepted (not Rejected) Requests",
+                    "avgCompleteness": "Average Result Completeness",
+                    "timeCompleteness": "Result Completeness",
+                    "avgErrAbsence": "Average Absence of Errors per Pattern",
+                    "timeErrAbsence": "Absence of Errors for \"{{ pattern }}\"",
+                    "ignored": "Ignored Runs"
+                },
+                "ignoredStat": {
+                    "ignored": "Ignored",
+                    "notIgnored": "Not ignored"
+                },
+                "tag": {
+                    "avg": "Average",
+                    "bar": "Bar chart",
+                    "completeness": "Completeness data",
+                    "doughnut": "Doughnut chart",
+                    "errors": "Error data",
+                    "ignored": "Ignored runs",
+                    "latency": "Latency data",
+                    "line": "Line chart",
+                    "rejected": "Rejected data",
+                    "time": "Temporal data"
+                }
+            },
+            "nothingSelected": {
+                "title": "No matching statistics",
+                "message": "There are no statistics matching your current tag selection. Please select tags in order to see performance statistics for this method/path."
+            }
+        }
+    }
+}

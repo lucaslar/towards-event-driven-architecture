@@ -1,0 +1,57 @@
+<mat-toolbar [class.mat-elevation-z3]="isScrolled">
+    <mat-toolbar-row class="p-3 p-md-4">
+        <div class="flex-grow-1 d-flex flex-column">
+            <div class="d-flex w-100">
+                <div class="title flex-grow-1">
+                    {{ 'app.title' | translate }}
+                </div>
+            </div>
+            <div class="d-flex w-100">
+                <div class="subtitle flex-grow-1">
+                    {{ 'app.subtitle' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <button
+                mat-icon-button
+                color="primary"
+                [matTooltip]="'header.actions.home' | translate"
+                routerLink=""
+            >
+                <mat-icon> home </mat-icon>
+            </button>
+
+            <button
+                mat-icon-button
+                color="primary"
+                [matTooltip]="'header.actions.info' | translate"
+                (click)='openInfoDialog()'
+            >
+                <mat-icon> info_outline </mat-icon>
+            </button>
+
+            <button
+                mat-icon-button
+                class="socket-status"
+                color="{{ statistics.isConnected ? 'accent' : 'warn' }}"
+                (click)="openSocketDialog()"
+            >
+                <mat-icon
+                    *ngIf="statistics.isConnected; else notConnected"
+                    [matTooltip]="'general.socket.connected' | translate"
+                >
+                    wifi
+                </mat-icon>
+
+                <ng-template #notConnected>
+                    <mat-icon
+                        [matTooltip]="'general.socket.notConnected' | translate"
+                    >
+                        wifi_off
+                    </mat-icon>
+                </ng-template>
+            </button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
