@@ -14,7 +14,7 @@ const { laureates, prizes } = await getInitialData();
 
 const getLaureateLocation = (l: any, s: string) => {
     const loc = ['cityNow', 'countryNow'].reduce((p, c) => {
-        const data = l[s]?.place[c]?.en ?? l[s + capitalize(c)]?.en;
+        const data = (l[s]?.place ?? {})[c]?.en ?? l[s + capitalize(c)]?.en;
         const foundationData =
             s === 'birth'
                 ? l.founded?.place[c]?.en ?? l.foundedCity?.en
