@@ -1,6 +1,5 @@
-import { NominatimResponse } from '../model/nominatim-response';
+import { NominatimResponse } from '../model/nominatim-response.js';
 import ngeohash from 'ngeohash';
-import { GeoPosition } from 'geo-position.ts';
 import { performance } from 'perf_hooks';
 import request from 'request';
 

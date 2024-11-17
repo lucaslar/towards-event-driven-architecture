@@ -1,17 +1,12 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "module": "es2022",
-    "lib": ["es2021"],
-    "allowJs": true,
-    "outDir": "build",
-    "rootDir": "src",
-    "strict": true,
-    "noImplicitAny": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "Node",
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "build",
+    "strict": true,
+    "skipLibCheck": true
   }
 }

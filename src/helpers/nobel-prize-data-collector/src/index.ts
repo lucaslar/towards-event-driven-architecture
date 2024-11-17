@@ -29,7 +29,7 @@ const getLaureateLocation = (l: any, s: string) => {
 // Interim data
 
 const locationsMap: { [x: string]: any } =
-    (await getStoredLocations())?.reduce((p, c) => {
+    (await getStoredLocations())?.reduce((p: any, c: any) => {
         return {
             ...p,
             [JSON.stringify({ city: c.city, country: c.country })]: c,

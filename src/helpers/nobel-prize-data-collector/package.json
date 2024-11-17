@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf ./build && tsc",
     "start": "node build/index.js",
-    "start:watch": "nodemon --ext ts --loader ts-node/esm --experimental-specifier-resolution node src"
+    "start:watch": "nodemon src/index.ts"
   },
   "author": "Lucas Larisch",
   "license": "CC-BY-NC-4.0",
@@ -16,21 +16,21 @@
     "csvtojson": "^2.0.10",
     "file": "^0.2.2",
     "geo-position.ts": "^1.4.1",
-    "json2csv": "^5.0.6",
+    "json2csv": "^5.0.7",
     "ngeohash": "^0.6.3",
     "path": "^0.12.7",
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "@types/json2csv": "^5.0.3",
+    "@types/json2csv": "^5.0.7",
     "@types/ngeohash": "^0.6.4",
     "@types/node": "^17.0.0",
-    "@types/request": "^2.48.8",
-    "nodemon": "^2.0.15",
-    "prettier": "^2.5.1",
+    "@types/request": "^2.48.12",
+    "nodemon": "^3.1.0",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.4"
+    "prettier": "^3.2.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.4.5"
   },
   "prettier": {
     "tabWidth": 4,

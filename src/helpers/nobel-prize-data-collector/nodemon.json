@@ -1,1 +1,9 @@
-{ "env": { "dir": "./../../../data", "devMode": true } }
+{
+    "watch": ["."],
+    "ext": "js ts",
+    "exec": "tsx",
+    "env": {
+        "dir": "./../../../data",
+        "devMode": true
+    }
+}
