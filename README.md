@@ -27,6 +27,8 @@ The [Nobel Prize Data Collector](./src/helpers/nobel-prize-data-collector/README
 
 Further functionality of both the exemplary _Laureate Search Tool_ and other implemented logic is described in the master thesis.
 
+![Overview of components/architectures](./architecture_all.png)
+
 ## Set it up locally
 
 ### Cloning 
