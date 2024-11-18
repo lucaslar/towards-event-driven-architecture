@@ -17,3 +17,5 @@
 
 /src/samples/sample-04/rabbitmq-data
 /src/stats-mongodata
+
+/data/cached_api

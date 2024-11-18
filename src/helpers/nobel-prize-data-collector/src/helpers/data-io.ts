@@ -5,14 +5,17 @@ import {
     collectPrizeApiData,
 } from './api-collector.js';
 import csv from 'csvtojson/index.js';
+import { Laureate } from '../model/laureate.js';
+import { NobelPrize } from '../model/nobel-prize.js';
 
 /**
  * Directory the data is to be stored in.
  */
 const dir = process.env.dir || '/usr/src/app/data';
 
-const readJsonData = async (api: string): Promise<any[]> => {
+const readJsonData = async (api: string): Promise<Laureate[] | undefined> => {
     const file = `${dir}/cached_api/${api}_api.json`;
+    if (!fs.existsSync(file)) return undefined;
     return JSON.parse(await fs.promises.readFile(file, { encoding: 'utf8' }));
 };
 
@@ -32,7 +35,7 @@ const writeJsonCacheFile = async (data: any, api: string) => {
 export const writeCsvFile = async (
     data: any,
     filename: string,
-    scope: 'monolith_only' | 'distributed_only' | 'shared' = 'shared'
+    scope: 'monolith_only' | 'distributed_only' | 'shared' = 'shared',
 ) => {
     const scopeDir = `${dir}/csv_data/${scope}`;
 
@@ -45,18 +48,20 @@ export const writeCsvFile = async (
     console.log('Successfully wrote:', file);
 };
 
-export const getInitialData = async () => {
-    let laureates, prizes;
-    if (process.env.devMode) {
-        [laureates, prizes] = await Promise.all(
-            ['laureate', 'prize'].map((s) => readJsonData(s))
-        );
-    } else {
-        laureates = await collectLaureateApiData();
-        prizes = await collectPrizeApiData();
-        await writeJsonCacheFile(laureates, 'laureate');
-        await writeJsonCacheFile(prizes, 'prize');
-    }
+export const getInitialData = async (): Promise<{
+    laureates: Laureate[];
+    prizes: NobelPrize[];
+}> => {
+    const laureates = process.env.devMode
+        ? ((await readJsonData('laureate')) ?? (await collectLaureateApiData()))
+        : await collectLaureateApiData();
+
+    const prizes = process.env.devMode
+        ? ((await readJsonData('prize')) ?? (await collectPrizeApiData()))
+        : await collectPrizeApiData();
+
+    await writeJsonCacheFile(laureates, 'laureate');
+    await writeJsonCacheFile(prizes, 'prize');
 
     return { laureates, prizes };
 };

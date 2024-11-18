@@ -9,6 +9,10 @@ The Nobel Prize Data Collector requires an active Internet connection and is int
 
 However, as this data is under version control, it is not required to run this tool for initializing the project.
 
+> **Note:** After handing in the thesis, the Nobel Prize API was changed to also include `latitude` and `longitude` of locations.
+> Therefore, this tool could be drastically simplified as geohashes can be created directly and lat/lon don't need to be requested
+> for a location name (previously implemented using Nominatim).
+
 ## Getting it started locally
 
 ### Build an image
@@ -28,5 +32,5 @@ docker run -v <data-directory>:/usr/src/app/data --rm nobel-prize-data-collector
 
 Example:
 ```shell
-docker run -v /Users/lla/IntelliJProjects/towards-event-driven-design-samples/data:/usr/src/app/data --rm nobel-prize-data-collector
+docker run -v /Users/lla/IdeaProjects/towards-event-driven-architecture/data:/usr/src/app/data --rm nobel-prize-data-collector
 ```

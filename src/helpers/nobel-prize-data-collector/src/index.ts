@@ -3,70 +3,40 @@ import {
     getStoredLocations,
     writeCsvFile,
 } from './helpers/data-io.js';
-import { capitalize } from './helpers/utils.js';
-import { getGeoHash12 } from './helpers/geo-service.js';
+import ngeohash from 'ngeohash';
+import { Laureate } from './model/laureate.js';
 
 // Initial data
 
 const { laureates, prizes } = await getInitialData();
 
-// Shared functions
+// Shared function:
 
-const getLaureateLocation = (l: any, s: string) => {
-    const loc = ['cityNow', 'countryNow'].reduce((p, c) => {
-        const data = (l[s]?.place ?? {})[c]?.en ?? l[s + capitalize(c)]?.en;
-        const foundationData =
-            s === 'birth'
-                ? l.founded?.place[c]?.en ?? l.foundedCity?.en
-                : undefined;
-        return { ...p, [c]: data ?? foundationData };
-    }, {}) as any;
-    return loc.cityNow && loc.countryNow
-        ? JSON.stringify({ city: loc.cityNow, country: loc.countryNow })
-        : undefined;
+const firstLocation = (
+    l: Laureate,
+    event: 'birth' | 'founded' | 'death' = 'birth',
+) => {
+    const locations: ['cityNow', 'countryNow', 'city', 'country'] = [
+        'cityNow',
+        'countryNow',
+        'city',
+        'country',
+    ];
+    for (const location of locations) {
+        if (l[event]?.place?.[location]?.latitude) {
+            const { latitude, longitude } = l[event].place[location];
+            return ngeohash.encode(+latitude, +longitude, 12);
+        }
+    }
 };
 
 // Interim data
 
-const locationsMap: { [x: string]: any } =
-    (await getStoredLocations())?.reduce((p: any, c: any) => {
-        return {
-            ...p,
-            [JSON.stringify({ city: c.city, country: c.country })]: c,
-        };
-    }, {}) ?? {};
-
-const newLocationsJson = laureates
-    .flatMap((l) => ['birth', 'death'].map((s) => getLaureateLocation(l, s)))
-    .filter((l) => !!l && !locationsMap[l]);
-
-if (newLocationsJson.length) {
-    const uniques = [...new Set(newLocationsJson)];
-    console.log('Collecting data for', uniques.length, 'new locations');
-    for (const location of uniques) {
-        const { country, city } = JSON.parse(location!);
-        const hash = await getGeoHash12(country, city);
-        locationsMap[location!] = { hash, country, city };
-    }
-}
-
 const laureatesUpdated = laureates.map((l) => {
-    let [birth, death] = [l.birth?.date ?? l.founded?.date, l.death?.date];
-    const birth_year = birth ? +birth.split('-')[0] : undefined;
-    const death_year = death ? +death.split('-')[0] : undefined;
+    let birth = l.birth?.date ?? l.founded?.date;
+    let death = l.death?.date;
     if (birth?.includes('-00-00')) birth = undefined;
     if (death?.includes('-00-00')) death = undefined;
-    let [birthLocation, deathLocation] = [{}, {}];
-    const birthLocationKey = getLaureateLocation(l, 'birth');
-    const deathLocationKey = getLaureateLocation(l, 'death');
-
-    if (birthLocationKey) {
-        birthLocation = { birth_location: locationsMap[birthLocationKey].hash };
-    }
-
-    if (deathLocationKey) {
-        deathLocation = { death_location: locationsMap[deathLocationKey].hash };
-    }
 
     return {
         id: +l.id,
@@ -75,14 +45,14 @@ const laureatesUpdated = laureates.map((l) => {
         nobelPrizes: l.nobelPrizes,
         gender: l.orgName ? 'org' : l.gender,
         wiki_url: l.wikipedia.english,
-        laureate_url: l.links.find((link: any) => link.rel === 'laureate').href,
-        external_url: l.links.find((link: any) => link.rel === 'external').href,
+        laureate_url: l.links.find((l) => l.rel === 'laureate')?.href,
+        external_url: l.links.find((l) => l.rel === 'external')?.href,
         birth,
-        birth_year,
+        birth_year: birth ? +birth.split('-')[0] : undefined,
         death,
-        death_year,
-        ...birthLocation,
-        ...deathLocation,
+        death_year: death ? +death.split('-')[0] : undefined,
+        birth_location: firstLocation(l) ?? firstLocation(l, 'founded'),
+        death_location: firstLocation(l, 'death'),
     };
 });
 
@@ -102,7 +72,6 @@ const prizesUpdated = prizes
 
 // Final data
 
-const locations = Object.values(locationsMap);
 const prizeCategories = Object.values(uniquePrizeCategoriesMap);
 
 const relationPrizeLaureate = prizesUpdated.flatMap((p) => {
@@ -135,7 +104,6 @@ const laureatesByPrize = laureatesUpdated.reduce((lp: any, lc) => {
 // Write final data
 
 await Promise.all([
-    writeCsvFile(locations, 'locations'),
     writeCsvFile(prizesMapped, 'prizes'),
     writeCsvFile(prizeCategories, 'prize_categories'),
     writeCsvFile(relationPrizeLaureate, 'prize_to_laureate'),
