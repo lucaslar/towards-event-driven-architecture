@@ -1,6 +1,6 @@
 FROM maven:3.8.4-eclipse-temurin-17 AS build
 WORKDIR /home/app
-COPY .. .
+COPY . .
 RUN mvn -f /home/app/pom.xml clean package -B
 
 FROM adoptopenjdk/openjdk16:jre
